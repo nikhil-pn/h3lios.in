@@ -79,7 +79,12 @@ const Footer = () => {
 
         {/* RIGHT START */}
         <div className="flex gap-4 justify-center md:justify-start">
-          <div className="w-10 h-10 rounded-full bg-white/[0.25] flex items-center justify-center text-black hover:bg-white/[0.5] cursor-pointer">
+          <div
+            className="w-10 h-10 rounded-full bg-white/[0.25] flex items-center justify-center text-black hover:bg-white/[0.5] cursor-pointer"
+            onClick={() => {
+              window.open("https://instagram.com/h3liosdesign", "_blank");
+            }}
+          >
             <FaInstagram size={20} />
           </div>
 
