@@ -2,6 +2,7 @@ import ProductDetailsCarousel from "@/components/ProductDetailsCarousel";
 import Wrapper from "@/components/Wrapper";
 import { IoMdHeartEmpty } from "react-icons/io";
 import React from "react";
+import RelatedProducts from "@/components/RelatedProducts";
 
 const ProductDetails = () => {
   return (
@@ -98,15 +99,13 @@ const ProductDetails = () => {
             <div>
               <div className="text-lg font-bold mb-5">Product Details</div>
               <div className="markdown text-md mb-5">
-                "Sed  ut perspiciatis unde omnis iste natus error sit voluptatem
+                "Sed ut perspiciatis unde omnis iste natus error sit voluptatem
                 accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
                 quae ab illo inventore veritatis et quasi architecto beatae
                 vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia
                 voluptas sit aspernatur aut odit aut fugit, sed quia
-                
               </div>
               <div className="markdown text-md mb-5">
-             
                 sit amet, consectetur, adipisci velit, sed quia non numquam eius
                 modi tempora incidunt ut labore et dolore magnam aliquam quaerat
                 voluptatem. Ut enim ad minima veniam, quis nostrum
@@ -121,6 +120,7 @@ const ProductDetails = () => {
           </div>
           {/* right column end */}
         </div>
+        <RelatedProducts></RelatedProducts>
       </Wrapper>
     </div>
   );
