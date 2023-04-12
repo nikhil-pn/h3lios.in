@@ -49,7 +49,7 @@ const Header = () => {
           /> */}
 
           <img
-            src="assets/h3liosSvg.svg"
+            src="/assets/h3liosSvg.svg"
             alt="main logo"
             className="w-[80px] md:w-[120px]"
           />

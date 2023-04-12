@@ -18,7 +18,7 @@ export default function App({ Component, pageProps }) {
           content="H3lios.in | Your Trusted Source for FullStack Web Applications - Build Modern Websites and Mobile Apps Quickly and Affordably | Contact Us"
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="favicon/favicon.ico" />
+        <link rel="icon" href="/favicon/favicon.ico" />
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
@@ -34,24 +34,24 @@ export default function App({ Component, pageProps }) {
         <link
           rel="apple-touch-icon"
           sizes="180x180"
-          href="favicon/apple-touch-icon.png"
+          href="/favicon/apple-touch-icon.png"
         />
         <link
           rel="icon"
           type="image/png"
           sizes="32x32"
-          href="favicon/favicon-32x32.png"
+          href="/favicon/favicon-32x32.png"
         />
         <link
           rel="icon"
           type="image/png"
           sizes="16x16"
-          href="favicon/favicon-16x16.png"
+          href="/favicon/favicon-16x16.png"
         />
-        <link rel="manifest" href="favicon/site.webmanifest" />
+        <link rel="manifest" href="/favicon/site.webmanifest" />
         <link
           rel="mask-icon"
-          href="favicon/safari-pinned-tab.svg"
+          href="/favicon/safari-pinned-tab.svg"
           color="#5bbad5"
         />
         <meta name="msapplication-TileColor" content="#da532c" />
