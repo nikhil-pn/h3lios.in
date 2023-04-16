@@ -7,7 +7,7 @@ const CartItem = () => {
     <div className="flex py-5 gap-3 md:gap-5 border-b">
       {/* IMAGE START */}
       <div className="shrink-0 aspect-square w-[50px] md:w-[120px]">
-        <Image src={`/assets/product-1.webp`} width={120} height={120} />
+        <Image src={`/assets/product-1.webp`}  alt="product-1" width={120} height={120} />
       </div>
       {/* IMAGE END */}
 

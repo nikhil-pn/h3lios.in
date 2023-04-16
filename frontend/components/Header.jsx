@@ -7,7 +7,10 @@ import { BsCart } from "react-icons/bs";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { BiMenuAltRight } from "react-icons/bi";
 import { VscChromeClose } from "react-icons/vsc";
+import { AiOutlineSearch } from "react-icons/ai";
+
 import MenuMobile from "./MenuMobile";
+import Search from "./Search";
 
 const Header = () => {
   const [mobileMenu, setMobileMenu] = useState(false);
@@ -64,9 +67,18 @@ const Header = () => {
           ></MenuMobile>
         )}
 
-        <div className="flex items-center gap-2 text-black">
-          {/* Icon start */}
+        <div className="flex items-center  text-black">
+          {/* search function start */}
           <section className="w-8 md:w-12 h-8 md:h-12 rounded-full flex justify-center items-center hover:bg-black/[0.05] cursor-pointer relative">
+            <button className="">
+              <AiOutlineSearch className="text-[19px] md:text-[24px]" />
+            </button>
+          </section>
+          {/* search function End */}
+
+          <Search></Search>
+          {/* Icon start */}
+          <section className="w-8 hidden md:flex md:w-12 h-8 md:h-12 rounded-full  justify-center items-center hover:bg-black/[0.05] cursor-pointer relative">
             <IoMdHeartEmpty className="text-[19px] md:text-[24px]" />
             <div className="h-[14px] md:h-[18px] min-w-[14px] md:min-w-[14px] rounded-full bg-red-600 absolute top-1 left-5 md:left-7 text-white text-[10px] md:text-[12px] flex justify-center items-center px-[2px] md:px-[5px]">
               2
