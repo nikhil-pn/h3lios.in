@@ -4,8 +4,6 @@ import Link from "next/link";
 import React from "react";
 
 const ProductCard = ({ data: { attributes: p, id } }) => {
-  console.log(p.image, "p");
-  console.log(p.thumbnail.data.attributes.url, "res.");
   return (
     <Link
       href={`/products/${p.slug}`}

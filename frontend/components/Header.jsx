@@ -11,12 +11,15 @@ import { AiOutlineSearch } from "react-icons/ai";
 
 import MenuMobile from "./MenuMobile";
 import Search from "./Search";
+import { fetchDataFromApi } from "@/utils/api";
 
 const Header = () => {
   const [mobileMenu, setMobileMenu] = useState(false);
   const [showCatMenu, setShowCatMenu] = useState(false);
   const [show, setShow] = useState("translate-y-0");
   const [lastScrollY, setLastScrollY] = useState(0);
+
+  const [categories, setCategories] = useState(null);
 
   const controlNavbar = () => {
     if (window.scrollY > 200) {
@@ -38,6 +41,15 @@ const Header = () => {
     };
   }, [lastScrollY]);
 
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  const fetchCategories = async () => {
+    const { data } = await fetchDataFromApi("/api/categories?populate=*");
+    setCategories(data);
+  };
+
   return (
     <header
       className={`w-full h-[50px] md:h-[80px] bg-white flex items-center justify-between z-20 sticky top-0 transition-transform divide-gray-300 ${show}`}
@@ -57,10 +69,15 @@ const Header = () => {
             className="w-[80px] md:w-[120px]"
           />
         </Link>
-        <Menu showCatMenu={showCatMenu} setShowCatMenu={setShowCatMenu}></Menu>
+        <Menu
+          categories={categories}
+          showCatMenu={showCatMenu}
+          setShowCatMenu={setShowCatMenu}
+        ></Menu>
 
         {mobileMenu && (
           <MenuMobile
+            categories={categories}
             showCatMenu={showCatMenu}
             setShowCatMenu={setShowCatMenu}
             setMobileMenu={setMobileMenu}
