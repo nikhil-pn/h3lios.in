@@ -1,8 +1,22 @@
 import HeroBanner from "@/components/HeroBanner";
 import ProductCard from "@/components/ProductCard";
 import Wrapper from "@/components/Wrapper";
+import { fetchDataFromApi } from "@/utils/api";
+import { useEffect } from "react";
+import { useState } from "react";
 
-export default function Home() {
+function Home({ products }) {
+  // const [data, setData] = useState(null);
+
+  // useEffect(() => {
+  //   fetchProducts()
+  // }, []);
+
+  // const fetchProducts = async () => {
+  //   const { data } = await fetchDataFromApi("/api/products");
+  //   setData(data);
+  // };
+  console.log(products);
   return (
     <main>
       <HeroBanner></HeroBanner>
@@ -10,6 +24,8 @@ export default function Home() {
         {/* heading and paragaph start */}
         <div className="text-center max-w-[800px] mx-auto my-[50px] md:my-[80px]">
           <div className="text-[28px] md:text-[34px] mb-5 font-semibold leading-tight">
+            {/* <h1>{products?.data?.[0]?.attributes?.name}</h1> */}
+            {/* Need to populate heading like this  */}
             Cushioning for Your Miles
           </div>
           <div className="text-md md:text-xl">
@@ -23,14 +39,28 @@ export default function Home() {
 
       {/* products grid start */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 my-14 px-8  md:px-20">
+        {products?.data?.map((product) => (
+          <ProductCard key={product.id} data={product}></ProductCard>
+        ))}
+
+        {/* <ProductCard></ProductCard>
         <ProductCard></ProductCard>
         <ProductCard></ProductCard>
         <ProductCard></ProductCard>
         <ProductCard></ProductCard>
-        <ProductCard></ProductCard>
-        <ProductCard></ProductCard>
+        <ProductCard></ProductCard> */}
       </div>
       {/* products grid end */}
     </main>
   );
 }
+
+export async function getStaticProps() {
+  const products = await fetchDataFromApi("/api/products?populate=*");
+
+  return {
+    props: { products: products },
+  };
+}
+
+export default Home;
