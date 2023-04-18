@@ -7,15 +7,35 @@ import { fetchDataFromApi } from "@/utils/api";
 import { getDiscountedPricePercentage } from "@/utils/helper";
 import ReactMarkdown from "react-markdown";
 
+import { useSelector, useDispatch } from "react-redux";
+import { addToCart } from "@/store/cartSlice";
+import { ToastContainer, toast } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
 
 const ProductDetails = ({ product, products }) => {
   const [selectedSize, setSelectedSize] = useState();
   const [showError, setShowError] = useState(true);
+  const dispatch = useDispatch();
 
   const p = product?.data?.[0]?.attributes;
-  console.log(p, "p");
+
+  const notify = () => {
+    toast.success("Success. Check Your Cart!", {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+  };
+
   return (
     <div className="w-full md:py-20">
+      <ToastContainer></ToastContainer>
       <Wrapper>
         <div className="flex flex-col lg:flex-row md:px-10 gap-[50px] lg:gap-[100px]">
           {/* left column start */}
@@ -115,6 +135,15 @@ const ProductDetails = ({ product, products }) => {
                     block: "center",
                     behavior: "smooth",
                   });
+                } else {
+                  dispatch(
+                    addToCart({
+                      ...product?.data?.[0],
+                      selectedSize,
+                      oneQuantityPrice: p.price,
+                    })
+                  );
+                  notify();
                 }
               }}
             >
@@ -133,7 +162,7 @@ const ProductDetails = ({ product, products }) => {
             <div>
               <div className="text-lg font-bold mb-5">Product Details</div>
               <div className=" markdown text-md mb-5">
-              <ReactMarkdown>{p.description}</ReactMarkdown>
+                <ReactMarkdown>{p.description}</ReactMarkdown>
               </div>
             </div>
             {/* PRODUCT DISCRIPTION END */}
@@ -169,12 +198,12 @@ export async function getStaticProps({ params: { slug } }) {
   );
   const products = await fetchDataFromApi(
     `/api/products?populate=*&[filters][slug][$ne]=${slug}`
-);
+  );
 
   return {
     props: {
       product,
-      products
+      products,
     },
   };
 }

@@ -1,5 +1,6 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import store from "@/store/store";
 import "@/styles/globals.css";
 import Head from "next/head";
 
@@ -58,9 +59,11 @@ export default function App({ Component, pageProps }) {
         <meta name="theme-color" content="#ffffff" />
       </Head>
 
-      <Header></Header>
-      <Component {...pageProps} />
-      <Footer></Footer>
+      <Provider store={store}>
+        <Header></Header>
+        <Component {...pageProps} />
+        <Footer></Footer>
+      </Provider>
     </>
   );
 }
