@@ -19,6 +19,7 @@ const Header = () => {
   const [showCatMenu, setShowCatMenu] = useState(false);
   const [show, setShow] = useState("translate-y-0");
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [showSearch, setShowSearch] = useState(false);
 
   const [categories, setCategories] = useState(null);
 
@@ -54,89 +55,95 @@ const Header = () => {
   };
 
   return (
-    <header
-      className={`w-full h-[50px] md:h-[80px] bg-white flex items-center justify-between z-20 sticky top-0 transition-transform divide-gray-300 ${show}`}
-    >
-      <Wrapper className="h-[60px] flex justify-between items-center">
-        <Link href="/">
-          {/* PNG LOGO Below */}
-          {/* <img
+    <>
+      <header
+        className={`w-full h-[50px] md:h-[80px] bg-white flex items-center justify-between z-20 sticky top-0 transition-transform divide-gray-300 ${show}`}
+      >
+        <Wrapper className="h-[60px] flex justify-between items-center">
+          <Link href="/">
+            {/* PNG LOGO Below */}
+            {/* <img
             src="assets/h3liosTransparent svg.png"
             alt="main logo"
             className="w-[40px] md:w-[120px]"
           /> */}
 
-          <img
-            src="/assets/h3liosSvg.svg"
-            alt="main logo"
-            className="w-[80px] md:w-[120px]"
-          />
-        </Link>
-        <Menu
-          categories={categories}
-          showCatMenu={showCatMenu}
-          setShowCatMenu={setShowCatMenu}
-        ></Menu>
-
-        {mobileMenu && (
-          <MenuMobile
+            <img
+              src="/assets/h3liosSvg.svg"
+              alt="main logo"
+              className="w-[80px] md:w-[120px]"
+            />
+          </Link>
+          <Menu
             categories={categories}
             showCatMenu={showCatMenu}
             setShowCatMenu={setShowCatMenu}
-            setMobileMenu={setMobileMenu}
-          ></MenuMobile>
-        )}
+          ></Menu>
 
-        <div className="flex items-center  text-black">
-          {/* search function start */}
-          <section className="w-8 md:w-12 h-8 md:h-12 rounded-full flex justify-center items-center hover:bg-black/[0.05] cursor-pointer relative">
-            <button className="">
-              <AiOutlineSearch className="text-[19px] md:text-[24px]" />
-            </button>
-          </section>
-          {/* search function End */}
+          {mobileMenu && (
+            <MenuMobile
+              categories={categories}
+              showCatMenu={showCatMenu}
+              setShowCatMenu={setShowCatMenu}
+              setMobileMenu={setMobileMenu}
+            ></MenuMobile>
+          )}
 
-          <Search></Search>
-          {/* Icon start */}
-          <section className="w-8 hidden md:flex md:w-12 h-8 md:h-12 rounded-full  justify-center items-center hover:bg-black/[0.05] cursor-pointer relative">
-            <IoMdHeartEmpty className="text-[19px] md:text-[24px]" />
-            <div className="h-[14px] md:h-[18px] min-w-[14px] md:min-w-[14px] rounded-full bg-red-600 absolute top-1 left-5 md:left-7 text-white text-[10px] md:text-[12px] flex justify-center items-center px-[2px] md:px-[5px]">
-              2
-            </div>{" "}
-          </section>
-          {/* Icon End */}
+          <div className="flex items-center  text-black">
+            {/* search function start */}
 
-          {/* Icon start */}
-          <Link href="/cart">
-            <section className="w-8 md:w-12 h-8 md:h-12 rounded-full flex justify-center items-center hover:bg-black/[0.05] cursor-pointer relative">
-              <BsCart className="text-[15px] md:text-[20px]" />
-              {cartItems.length > 0 && (
-                <div className="h-[14px] md:h-[18px] min-w-[14px] md:min-w-[14px] rounded-full bg-red-600 absolute top-1 left-5 md:left-7 text-white text-[10px] md:text-[12px] flex justify-center items-center px-[2px] md:px-[5px]">
-                  {cartItems.length}
-                </div>
+            <section
+              className="w-8 md:w-12 h-8 md:h-12 rounded-full flex justify-center items-center hover:bg-black/[0.05] cursor-pointer relative"
+              onClick={() => setShowSearch(true)}
+            >
+              <button className="">
+                <AiOutlineSearch
+                  className="text-[19px] md:text-[24px]"
+                  // onClick={() => setShowSearch(true)}
+                />
+              </button>
+            </section>
+            {/* search function End */}
+            {/* Icon start */}
+            <section className="w-8 hidden md:flex md:w-12 h-8 md:h-12 rounded-full  justify-center items-center hover:bg-black/[0.05] cursor-pointer relative">
+              <IoMdHeartEmpty className="text-[19px] md:text-[24px]" />
+              <div className="h-[14px] md:h-[18px] min-w-[14px] md:min-w-[14px] rounded-full bg-red-600 absolute top-1 left-5 md:left-7 text-white text-[10px] md:text-[12px] flex justify-center items-center px-[2px] md:px-[5px]">
+                2
+              </div>{" "}
+            </section>
+            {/* Icon End */}
+            {/* Icon start */}
+            <Link href="/cart">
+              <section className="w-8 md:w-12 h-8 md:h-12 rounded-full flex justify-center items-center hover:bg-black/[0.05] cursor-pointer relative">
+                <BsCart className="text-[15px] md:text-[20px]" />
+                {cartItems.length > 0 && (
+                  <div className="h-[14px] md:h-[18px] min-w-[14px] md:min-w-[14px] rounded-full bg-red-600 absolute top-1 left-5 md:left-7 text-white text-[10px] md:text-[12px] flex justify-center items-center px-[2px] md:px-[5px]">
+                    {cartItems.length}
+                  </div>
+                )}
+              </section>
+            </Link>
+            {/* Icon End */}
+            {/* Mobile icon start */}
+            <section className="w-8 md:w-12 h-8 md:h-12 rounded-full flex md:hidden justify-center items-center hover:bg-black/[0.05] cursor-pointer relative -mr-2">
+              {mobileMenu ? (
+                <VscChromeClose
+                  className="text-[16px]"
+                  onClick={() => setMobileMenu(false)}
+                />
+              ) : (
+                <BiMenuAltRight
+                  className="text-[20px]"
+                  onClick={() => setMobileMenu(true)}
+                />
               )}
             </section>
-          </Link>
-          {/* Icon End */}
-
-          {/* Mobile icon start */}
-          <section className="w-8 md:w-12 h-8 md:h-12 rounded-full flex md:hidden justify-center items-center hover:bg-black/[0.05] cursor-pointer relative -mr-2">
-            {mobileMenu ? (
-              <VscChromeClose
-                className="text-[16px]"
-                onClick={() => setMobileMenu(false)}
-              />
-            ) : (
-              <BiMenuAltRight
-                className="text-[20px]"
-                onClick={() => setMobileMenu(true)}
-              />
-            )}
-          </section>
-          {/* Mobile icon End */}
-        </div>
-      </Wrapper>
-    </header>
+            {/* Mobile icon End */}
+          </div>
+        </Wrapper>
+      </header>
+      {showSearch && <Search setShowSearch={setShowSearch}></Search>}
+    </>
   );
 };
 

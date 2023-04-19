@@ -108,3 +108,81 @@
 .markdown ul li {
   margin: 10px 0;
 }
+
+/* SEARCH BAR STYLING */
+#search-modal {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 50;
+  top: 0;
+  left: 0;
+  background-color: white;
+  transform: translateY(100%);
+  animation: slideSearchWindow 0.5s ease forwards;
+}
+
+#form-field {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 10px 50px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  position: relative;
+
+  @media screen and (min-width: 768px) {
+    padding: 20px 0;
+  }
+}
+#search-input {
+  width: 100%;
+  max-width: 1200px;
+  height: 50px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: #212121;
+  outline: none;
+  border: none;
+  text-transform: uppercase;
+
+  @media screen and (min-width: 768px) {
+    font-size: 24px;
+    height: 80px;
+  }
+}
+/* PLACEHOLDER COLOR CHANGE */
+
+/* #search-input::placeholder {
+  color: blue;
+  opacity: 1;
+}
+::-ms-input-placeholder {
+  color: red;
+} */
+
+#close-btn {
+  position: absolute;
+
+  font-size: 20px;
+  right: 20px;
+  color: grey;
+  opacity: 75%;
+  top: 25px;
+  transform: translate(-50%);
+  cursor: pointer;
+  @media screen and (min-width: 768px) {
+    top: 35px;
+    right: 40px;
+    font-size: 40px;
+  }
+}
+
+@keyframes slideSearchWindow {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
+}
