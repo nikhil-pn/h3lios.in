@@ -43,12 +43,7 @@ function Home({ products }) {
           <ProductCard key={product.id} data={product}></ProductCard>
         ))}
 
-        {/* <ProductCard></ProductCard>
-        <ProductCard></ProductCard>
-        <ProductCard></ProductCard>
-        <ProductCard></ProductCard>
-        <ProductCard></ProductCard>
-        <ProductCard></ProductCard> */}
+    
       </div>
       {/* products grid end */}
     </main>
