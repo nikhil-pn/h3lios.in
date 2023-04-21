@@ -8,11 +8,13 @@ import { IoMdHeartEmpty } from "react-icons/io";
 import { BiMenuAltRight } from "react-icons/bi";
 import { VscChromeClose } from "react-icons/vsc";
 import { AiOutlineSearch } from "react-icons/ai";
+import { RxAvatar } from "react-icons/rx";
 
 import MenuMobile from "./MenuMobile";
 import Search from "./Search";
 import { fetchDataFromApi } from "@/utils/api";
 import { useSelector } from "react-redux";
+import ProfileMenu from "./ProfileMenu";
 
 const Header = () => {
   const [mobileMenu, setMobileMenu] = useState(false);
@@ -20,8 +22,8 @@ const Header = () => {
   const [show, setShow] = useState("translate-y-0");
   const [lastScrollY, setLastScrollY] = useState(0);
   const [showSearch, setShowSearch] = useState(false);
-
   const [categories, setCategories] = useState(null);
+  const [showProfileMenu, setShowProfileMenu] = useState(false);
 
   const { cartItems } = useSelector((state) => state.cart);
 
@@ -61,13 +63,6 @@ const Header = () => {
       >
         <Wrapper className="h-[60px] flex justify-between items-center">
           <Link href="/">
-            {/* PNG LOGO Below */}
-            {/* <img
-            src="assets/h3liosTransparent svg.png"
-            alt="main logo"
-            className="w-[40px] md:w-[120px]"
-          /> */}
-
             <img
               src="/assets/h3liosSvg.svg"
               alt="main logo"
@@ -105,7 +100,7 @@ const Header = () => {
             </section>
             {/* search function End */}
             {/* Icon start */}
-            <section className="w-8 hidden md:flex md:w-12 h-8 md:h-12 rounded-full  justify-center items-center hover:bg-black/[0.05] cursor-pointer relative">
+            <section className="w-8 hidden  md:flex md:w-12 h-8 md:h-12 rounded-full  justify-center items-center hover:bg-black/[0.05] cursor-pointer relative">
               <IoMdHeartEmpty className="text-[19px] md:text-[24px]" />
               <div className="h-[14px] md:h-[18px] min-w-[14px] md:min-w-[14px] rounded-full bg-red-600 absolute top-1 left-5 md:left-7 text-white text-[10px] md:text-[12px] flex justify-center items-center px-[2px] md:px-[5px]">
                 2
@@ -124,6 +119,19 @@ const Header = () => {
               </section>
             </Link>
             {/* Icon End */}
+            <section
+              onClick={() => setShowProfileMenu(true)}
+              className="w-8 flex md:w-12 h-8 md:h-12 rounded-full  justify-center items-center hover:bg-black/[0.05] cursor-pointer relative"
+            >
+              <RxAvatar className="text-[19px] md:text-[24px]" />
+            </section>
+
+            <ProfileMenu
+              showProfileMenu={showProfileMenu}
+              setShowProfileMenu={setShowProfileMenu}
+            ></ProfileMenu>
+
+
             {/* Mobile icon start */}
             <section className="w-8 md:w-12 h-8 md:h-12 rounded-full flex md:hidden justify-center items-center hover:bg-black/[0.05] cursor-pointer relative -mr-2">
               {mobileMenu ? (

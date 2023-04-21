@@ -38,12 +38,10 @@ function Home({ products }) {
       </Wrapper>
 
       {/* products grid start */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 my-14 px-8  md:px-20">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4   gap-5 my-14 px-8  md:px-20">
         {products?.data?.map((product) => (
           <ProductCard key={product.id} data={product}></ProductCard>
         ))}
-
-    
       </div>
       {/* products grid end */}
     </main>

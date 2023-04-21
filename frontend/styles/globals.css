@@ -120,7 +120,6 @@
   background-color: white;
   transform: translateY(100%);
   animation: slideSearchWindow 0.5s ease forwards;
- 
 }
 
 #form-field {
@@ -199,7 +198,7 @@
   height: calc(100vh-110px);
   overflow: auto;
   margin: 20px 0;
-  
+
   @media screen and (min-width: 768px) {
     height: calc(100vh-160px);
     width: 100%;
@@ -212,7 +211,6 @@
   padding: 10px 0;
   border-bottom: 1px solid rgba(96, 21, 21, 0.1);
   cursor: pointer;
-  
 }
 #img-container {
   background-color: rgba(0, 0, 0, 0.05);
@@ -252,3 +250,5 @@
   margin-top: 20px;
   color: rgba(0, 0, 0, 0.5);
 }
+
+
