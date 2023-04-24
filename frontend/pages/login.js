@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 
 import { auth } from "@/firebase/firebase";
@@ -8,13 +8,29 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
+import { useAuth } from "@/firebase/auth";
+import { useRouter } from "next/router";
+import Loader from "@/components/Loader";
 
 const provider = new GoogleAuthProvider();
-
 
 const login = () => {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
+  const { authUser, isLoading } = useAuth();
+
+  const router = useRouter();
+
+  useEffect(() => {
+    console.log(isLoading, "isloading");
+    console.log(authUser, "authUser");
+    // if (authUser) {
+    //   router.push("/");
+    // }
+    if (!isLoading && authUser) {
+      router.push("/");
+    }
+  }, [authUser, isLoading]);
 
   const loginHandler = async () => {
     if (!email || !password) {
@@ -36,7 +52,9 @@ const login = () => {
     }
   };
 
-  return (
+  return isLoading || (!isLoading && authUser) ? (
+    <Loader></Loader>
+  ) : (
     <main className="flex :h-[100vh] font-urbanist md:-mt-10">
       <div className="w-full  p-8 md:p-14 flex items-center justify-center ">
         <div className="p-8 w-[600px] justify-center text-center  ">
@@ -51,13 +69,12 @@ const login = () => {
             </Link>
           </p>
 
-          <div className="bg-black/[0.05] text-white w-full py-4 mt-10 rounded-full transition-transform hover:bg-black/[0.8] active:scale-90 flex justify-center items-center gap-4 cursor-pointer group"
+          <div
+            className="bg-black/[0.05] text-white w-full py-4 mt-10 rounded-full transition-transform hover:bg-black/[0.8] active:scale-90 flex justify-center items-center gap-4 cursor-pointer group"
             onClick={signInWithGoogle}
           >
             <FcGoogle size={22} />
-            <span
-              className="font-medium text-black group-hover:text-white"
-            >
+            <span className="font-medium text-black group-hover:text-white">
               Login with Google
             </span>
           </div>

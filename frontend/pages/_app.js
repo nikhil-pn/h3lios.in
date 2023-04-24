@@ -1,5 +1,6 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import { AuthUserProvider } from "@/firebase/auth";
 import store from "@/store/store";
 import "@/styles/globals.css";
 import Head from "next/head";
@@ -59,11 +60,13 @@ export default function App({ Component, pageProps }) {
         <meta name="theme-color" content="#ffffff" />
       </Head>
 
-      <Provider store={store}>
-        <Header></Header>
-        <Component {...pageProps} />
-        <Footer></Footer>
-      </Provider>
+      <AuthUserProvider>
+        <Provider store={store}>
+          <Header></Header>
+          <Component {...pageProps} />
+          <Footer></Footer>
+        </Provider>
+      </AuthUserProvider>
     </>
   );
 }

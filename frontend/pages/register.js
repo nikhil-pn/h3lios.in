@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 
 import {
@@ -9,7 +9,12 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 
+
+
 import { auth } from "@/firebase/firebase";
+import { useAuth } from "@/firebase/auth";
+import { useRouter } from "next/router";
+import Loader from "@/components/Loader";
 
 const provider = new GoogleAuthProvider();
 
@@ -17,6 +22,17 @@ const register = () => {
   const [username, setUsername] = useState(null);
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
+  const { authUser, isLoading, setAuthUser } = useAuth();
+
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!isLoading && authUser) {
+      console.log("reached reg");
+      router.push("/");
+    }
+  }, [authUser, isLoading]);
 
   const singupHandler = async () => {
     if (!email || !password || !username) return;
@@ -46,7 +62,9 @@ const register = () => {
       console.error("An error occured", error);
     }
   };
-  return (
+  return isLoading || (!isLoading && authUser) ? (
+    <Loader></Loader>
+  ) : (
     <div>
       <main className="flex :h-[100vh] font-urbanist md:-mt-16">
         <div className="w-full  p-8 md:p-14 flex items-center justify-center">

@@ -16,7 +16,6 @@ function Home({ products }) {
   //   const { data } = await fetchDataFromApi("/api/products");
   //   setData(data);
   // };
-  console.log(products);
   return (
     <main>
       <HeroBanner></HeroBanner>

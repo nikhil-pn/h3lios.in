@@ -16,6 +16,9 @@ import { fetchDataFromApi } from "@/utils/api";
 import { useSelector } from "react-redux";
 import ProfileMenu from "./ProfileMenu";
 
+import { useAuth } from "@/firebase/auth";
+import { useRouter } from "next/router";
+
 const Header = () => {
   const [mobileMenu, setMobileMenu] = useState(false);
   const [showCatMenu, setShowCatMenu] = useState(false);
@@ -24,8 +27,22 @@ const Header = () => {
   const [showSearch, setShowSearch] = useState(false);
   const [categories, setCategories] = useState(null);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const [logOut, setLogOut] = useState(false);
 
   const { cartItems } = useSelector((state) => state.cart);
+
+  const { authUser, isLoading, signOut } = useAuth();
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!isLoading && !authUser) {
+      console.log(logOut, "log out");
+      if (logOut) {
+        router.push("/login");
+      }
+    }
+  }, [authUser, isLoading]);
 
   const controlNavbar = () => {
     if (window.scrollY > 200) {
@@ -62,7 +79,7 @@ const Header = () => {
         className={`w-full h-[50px] md:h-[80px] bg-white flex items-center justify-between z-20 sticky top-0 transition-transform divide-gray-300 ${show}`}
       >
         <Wrapper className="h-[60px] flex justify-between items-center">
-          <Link href="/">
+          <Link href="/" onClick={() => setMobileMenu(false)}>
             <img
               src="/assets/h3liosSvg.svg"
               alt="main logo"
@@ -81,6 +98,9 @@ const Header = () => {
               showCatMenu={showCatMenu}
               setShowCatMenu={setShowCatMenu}
               setMobileMenu={setMobileMenu}
+              authUser={authUser}
+              signOut={signOut}
+              setLogOut={setLogOut}
             ></MenuMobile>
           )}
 
@@ -119,18 +139,65 @@ const Header = () => {
               </section>
             </Link>
             {/* Icon End */}
-            <section
-              onClick={() => setShowProfileMenu(true)}
-              className="w-8 flex md:w-12 h-8 md:h-12 rounded-full  justify-center items-center hover:bg-black/[0.05] cursor-pointer relative"
-            >
-              <RxAvatar className="text-[19px] md:text-[24px]" />
-            </section>
+            {/* {authUser && <h1 >{authUser.username}</h1>} */}
+
+            {/* <h1 className="font-medium text-black text-sm font-urbanist mr-2">
+              Login
+            </h1>
+            <Link onClick={() => setShowProfileMenu(false)} href="/register">
+              <li className="h-10 flex text-[12px]  text-white justify-center items-center px-3 bg-black rounded-md">
+                Sign Up
+              </li>
+            </Link> */}
+
+            {authUser ? (
+              <></>
+            ) : (
+              <>
+                <Link href="/login">
+                  <li className="hidden md:flex px-1 h-10 font-medium text-black justify-center items-center  font-urbanist mr-2">
+                    Login
+                  </li>
+                </Link>
+                <Link href="/register">
+                  <li className=" hidden md:flex h-10 px-5  text-[14px] leading-tight text-white justify-center items-center  bg-black rounded-lg">
+                    Sign Up
+                  </li>
+                </Link>
+              </>
+            )}
+
+            {authUser && (
+              <section
+                onClick={() => {
+                  setShowProfileMenu(true);
+                }}
+                className={`w-8 flex ${
+                  authUser?.photo ? "" : "hidden"
+                } md:flex md:w-12 h-8 md:h-12 rounded-full justify-center items-center hover:bg-black/[0.05] cursor-pointer relative`}
+              >
+                {authUser?.photo ? (
+                  <div className="w-[70%]">
+                    <img
+                      className="rounded-full"
+                      alt="photo"
+                      src={authUser?.photo}
+                    />
+                  </div>
+                ) : (
+                  <>
+                    <h1>{authUser?.username}</h1>
+                  </>
+                )}
+              </section>
+            )}
 
             <ProfileMenu
               showProfileMenu={showProfileMenu}
               setShowProfileMenu={setShowProfileMenu}
+              signOut={signOut}
+              setLogOut={setLogOut}
             ></ProfileMenu>
-
 
             {/* Mobile icon start */}
             <section className="w-8 md:w-12 h-8 md:h-12 rounded-full flex md:hidden justify-center items-center hover:bg-black/[0.05] cursor-pointer relative -mr-2">

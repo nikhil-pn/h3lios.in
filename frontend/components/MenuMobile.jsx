@@ -22,17 +22,29 @@ const MenuMobile = ({
   setShowCatMenu,
   setMobileMenu,
   categories,
+  authUser,
+  signOut,
+  setLogOut
 }) => {
   return (
     <>
       <div className="">
         <ul className="flex flex-col md:hidden font-bold absolute top-[50px] left-0 w-full h-[calc(100vh-50px)] bg-white border-t text-black">
+          {authUser && (
+            <section className="grid h-20 justify-center place-content-center mt-10">
+              <h1 className=" text-2xl/3 opacity-90 ">
+                Welcome back {authUser?.username}
+              </h1>
+            </section>
+          )}
+
           {data.map((item) => {
             return (
               <>
                 <React.Fragment key={item.id}>
                   {!!item?.subMenu ? (
                     <li
+                    
                       className="cursor-pointer py-4 px-5 border-b flex flex-col relative"
                       onClick={() => setShowCatMenu(!showCatMenu)}
                     >
@@ -53,7 +65,8 @@ const MenuMobile = ({
                                   setMobileMenu(false);
                                 }}
                               >
-                                <li className="py-4 px-8 border-t flex justify-between">
+                                <li className="py-4 px-8 border-t flex justify-between"
+                                >
                                   {c.name}
                                   <span className="opacity-50 text-sm">
                                     {" "}
@@ -68,6 +81,8 @@ const MenuMobile = ({
                     </li>
                   ) : (
                     <li className="py-4 px-5 border-b">
+
+                    
                       <Link
                         href={item?.url}
                         onClick={() => setMobileMenu(false)}
@@ -82,8 +97,42 @@ const MenuMobile = ({
           })}
           <section className="flex mx-auto my-auto gap-4 font-bold">
             {/* <button className="bg-green-400 px-4 py-2 rounded-md">Log In</button> */}
-            <button id="button" className=" bg-green-400 px-8 rounded-lg py-2 font-urbanist text-lg">Log In</button>
-            <button id="button" className="font-urbanist px-8 rounded-lg py-2 bg-black text-white text-lg">Sign Up</button>
+
+            {!authUser && (
+              <>
+                <Link href="/login">
+                  <button
+                    id="button"
+                    onClick={() => setMobileMenu(false)}
+                    className="bg-black font-normal text-white w-[150px] py-4 mt-10 rounded-sm transition-transform hover:bg-black/[0.8] active:scale-90"
+                  >
+                    Log In
+                  </button>
+                </Link>
+                <Link href="/register">
+                  <button
+                    id="button"
+                    onClick={() => setMobileMenu(false)}
+                    className="bg-black font-normal text-white w-[150px] py-4 mt-10 rounded-sm transition-transform hover:bg-black/[0.8] active:scale-90"
+                  >
+                    Sign Up
+                  </button>
+                </Link>
+              </>
+            )}
+            {authUser && (
+              <button
+                id="button"
+                className="bg-black font-normal text-white w-[150px] py-4 mt-10 rounded-sm transition-transform hover:bg-black/[0.8] active:scale-90"
+                onClick={() => {
+                  setMobileMenu(false);
+                  setLogOut(true)
+                  signOut();
+                }}
+              >
+                Logout
+              </button>
+            )}
           </section>
         </ul>
       </div>
