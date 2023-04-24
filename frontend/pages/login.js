@@ -2,6 +2,8 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 
+import { useSelector } from "react-redux";
+
 import { auth } from "@/firebase/firebase";
 import {
   signInWithEmailAndPassword,
@@ -18,17 +20,23 @@ const login = () => {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const { authUser, isLoading } = useAuth();
+  const { cartItems } = useSelector((state) => state.cart);
 
   const router = useRouter();
+
+  console.log(cartItems, "cartItems");
 
   useEffect(() => {
     console.log(isLoading, "isloading");
     console.log(authUser, "authUser");
-    // if (authUser) {
-    //   router.push("/");
-    // }
+
     if (!isLoading && authUser) {
-      router.push("/");
+      if (cartItems.length > 0) {
+        console.log("log here in cart items");
+        router.push("/cart");
+      } else {
+        router.push("/");
+      }
     }
   }, [authUser, isLoading]);
 

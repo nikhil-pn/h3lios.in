@@ -35,7 +35,7 @@ const ProfileMenu = ({
               </Link> */}
 
               <li
-                className="h-12 text-black flex justify-center items-center px-3 hover:bg-black/[0.03] rounded-md"
+                className="h-12 text-black flex justify-center items-center px-3 hover:bg-black/[0.03] transition-transform  active:scale-90 rounded-md"
                 onClick={()=>{
                   signOut(),
                   setLogOut(true)

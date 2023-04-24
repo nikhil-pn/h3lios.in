@@ -7,6 +7,9 @@ import { useSelector } from "react-redux";
 
 import { loadStripe } from "@stripe/stripe-js";
 import { makePaymentRequest } from "@/utils/api";
+import { useAuth } from "@/firebase/auth";
+import { useRouter } from "next/router";
+
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
@@ -15,26 +18,32 @@ const stripePromise = loadStripe(
 const cart = () => {
   const [loading, setLoading] = useState(false);
   const { cartItems } = useSelector((state) => state.cart);
+  const { authUser } = useAuth();
+  const router = useRouter()
 
   const subtotal = useMemo(() => {
     return cartItems.reduce((total, val) => total + val.attributes.price, 0);
   }, [cartItems]);
 
   const handlePayment = async () => {
-    try {
-      setLoading(true);
-      const stripe = await stripePromise;
-      
-      const res = await makePaymentRequest("/api/orders", {
-        products: cartItems,
-      });
-      await stripe.redirectToCheckout({
-        sessionId: res.stripeSession.id,
-      });
-    } catch (error) {
-      setLoading(false);
-      console.log(error);
+    if (authUser) {
+      try {
+        setLoading(true);
+        const stripe = await stripePromise;
+
+        const res = await makePaymentRequest("/api/orders", {
+          products: cartItems,
+        });
+        await stripe.redirectToCheckout({
+          sessionId: res.stripeSession.id,
+        });
+      } catch (error) {
+        setLoading(false);
+        console.log(error);
+      }
     }
+    router.push("/login")
+    
   };
 
   return (

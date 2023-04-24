@@ -1,12 +1,62 @@
+import { useAuth } from "@/firebase/auth";
+import { db } from "@/firebase/firebase";
 import { updateCart, removeFromCart } from "@/store/cartSlice";
+import { addDoc, collection, query, where, getDocs } from "firebase/firestore";
+
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useDispatch } from "react-redux";
 
 const CartItem = ({ data }) => {
-  const p = data.attributes;
+  console.log(data, "data");
+  const [todos, setTodos] = useState([]);
 
+  const p = data.attributes;
+  // const p =
+  console.log(todos, "todos");
+
+  // console.log(p, "p data");
+
+  //fireStore
+
+  // fetching item form fireStore
+
+  const fetchCartItems = async (uid) => {
+    try {
+      // Create a Firestore query to fetch all the todos for the user with the given ID.
+      const q = query(collection(db, "cart"), where("owner", "==", uid));
+
+      // Execute the query and get a snapshot of the results.
+      const querySnapshot = await getDocs(q);
+
+      // Extract the data from each todo document and add it to the data array.
+      let data = [];
+      querySnapshot.forEach((item) => {
+        data.push({ ...item.data(), id: item.id });
+      });
+      setTodos(data);
+    } catch (error) {
+      console.error(error, "Error");
+    }
+  };
+
+  //adding item to fireStore
+  const { authUser } = useAuth();
+  console.log(authUser, "authUser");
+  const addItemsToFireStore = async () => {
+    try {
+      const docRef = await addDoc(collection(db, "cart"), {
+        owner: authUser.uid,
+        content: p,
+      });
+
+      console.log(docRef.id, "doc id");
+      fetchCartItems(authUser.uid);
+    } catch (error) {
+      console.error(error, "Error firestore");
+    }
+  };
   const dispatch = useDispatch();
   const updateCartItem = (e, key) => {
     let payload = {
@@ -35,6 +85,19 @@ const CartItem = ({ data }) => {
           {/* PRODUCT TITLE */}
           <div className="text-lg md:text-2xl font-semibold text-black/[0.8]">
             {p.name}
+          </div>
+
+          {/* {todos && <h1>{todos?.[0].content.name}</h1>} */}
+          <div>
+            {todos.length > 0 ? (
+              <ul>
+                {todos.map((todo) => (
+                  <li key={todo.content.id}>{todo.content.name}</li>
+                ))}
+              </ul>
+            ) : (
+              <p>No items to display</p>
+            )}
           </div>
 
           {/* PRODUCT SUBTITLE */}
@@ -96,6 +159,7 @@ const CartItem = ({ data }) => {
             onClick={() => dispatch(removeFromCart({ id: data.id }))}
             className="cursor-pointer text-black/[0.5] hover:text-black text-[16px] md:text-[20px]"
           />
+          <button onClick={addItemsToFireStore}>add to fire store</button>
         </div>
       </div>
     </div>

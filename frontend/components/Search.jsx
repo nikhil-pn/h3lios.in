@@ -35,7 +35,7 @@ function Search({ setShowSearch }) {
   console.log(query, "query");
   return (
     <div id="search-modal" className="overflow-auto">
-      <div id="form-field">
+      <div id="form-field" className="">
         <input
           autoComplete="off"
           id="search-input"
@@ -44,7 +44,7 @@ function Search({ setShowSearch }) {
           placeholder="Search for Products"
           onChange={onHandleChange}
         />
-        <MdClose id="close-btn" onClick={() => setShowSearch(false)} />
+        <MdClose  id="close-btn" className="transition-transform rounded-full active:scale-90" onClick={() => setShowSearch(false)} />
       </div>
       <div id="search-result-content" className="w-full">
         {!data?.data?.length && (

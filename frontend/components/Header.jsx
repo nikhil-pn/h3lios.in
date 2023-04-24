@@ -37,7 +37,6 @@ const Header = () => {
 
   useEffect(() => {
     if (!isLoading && !authUser) {
-      console.log(logOut, "log out");
       if (logOut) {
         router.push("/login");
       }
@@ -79,7 +78,7 @@ const Header = () => {
         className={`w-full h-[50px] md:h-[80px] bg-white flex items-center justify-between z-20 sticky top-0 transition-transform divide-gray-300 ${show}`}
       >
         <Wrapper className="h-[60px] flex justify-between items-center">
-          <Link href="/" onClick={() => setMobileMenu(false)}>
+          <Link href="/" onClick={() => setMobileMenu(false)} className="transition-transform active:scale-95">
             <img
               src="/assets/h3liosSvg.svg"
               alt="main logo"
@@ -108,19 +107,19 @@ const Header = () => {
             {/* search function start */}
 
             <section
-              className="w-8 md:w-12 h-8 md:h-12 rounded-full flex justify-center items-center hover:bg-black/[0.05] cursor-pointer relative"
+              className="w-8 md:w-12 h-8 md:h-12 rounded-full flex justify-center items-center hover:bg-black/[0.05] cursor-pointer relative transition-transform active:scale-90"
               onClick={() => setShowSearch(true)}
             >
               <button className="">
                 <AiOutlineSearch
-                  className="text-[19px] md:text-[24px]"
+                  className="text-[19px] md:text-[24px] "
                   // onClick={() => setShowSearch(true)}
                 />
               </button>
             </section>
             {/* search function End */}
             {/* Icon start */}
-            <section className="w-8 hidden  md:flex md:w-12 h-8 md:h-12 rounded-full  justify-center items-center hover:bg-black/[0.05] cursor-pointer relative">
+            <section className="w-8 hidden  md:flex md:w-12 h-8 md:h-12 rounded-full  justify-center items-center hover:bg-black/[0.05] cursor-pointer relative transition-transform active:scale-90">
               <IoMdHeartEmpty className="text-[19px] md:text-[24px]" />
               <div className="h-[14px] md:h-[18px] min-w-[14px] md:min-w-[14px] rounded-full bg-red-600 absolute top-1 left-5 md:left-7 text-white text-[10px] md:text-[12px] flex justify-center items-center px-[2px] md:px-[5px]">
                 2
@@ -130,7 +129,7 @@ const Header = () => {
             {/* Icon start */}
             <Link href="/cart">
               <section className="w-8 md:w-12 h-8 md:h-12 rounded-full flex justify-center items-center hover:bg-black/[0.05] cursor-pointer relative">
-                <BsCart className="text-[15px] md:text-[20px]" />
+                <BsCart className="text-[15px] md:text-[20px] transition-transform active:scale-90" />
                 {cartItems.length > 0 && (
                   <div className="h-[14px] md:h-[18px] min-w-[14px] md:min-w-[14px] rounded-full bg-red-600 absolute top-1 left-5 md:left-7 text-white text-[10px] md:text-[12px] flex justify-center items-center px-[2px] md:px-[5px]">
                     {cartItems.length}
@@ -155,12 +154,12 @@ const Header = () => {
             ) : (
               <>
                 <Link href="/login">
-                  <li className="hidden md:flex px-1 h-10 font-medium text-black justify-center items-center  font-urbanist mr-2">
+                  <li className="hidden md:flex px-1 h-10 font-medium text-black justify-center items-center  font-urbanist mr-2 transition-transform active:scale-90">
                     Login
                   </li>
                 </Link>
                 <Link href="/register">
-                  <li className=" hidden md:flex h-10 px-5  text-[14px] leading-tight text-white justify-center items-center  bg-black rounded-lg">
+                  <li className=" hidden md:flex h-10 px-5  text-[14px] leading-tight text-white justify-center items-center  bg-black rounded-lg transition-transform hover:bg-black/[0.8] active:scale-90">
                     Sign Up
                   </li>
                 </Link>
@@ -174,7 +173,7 @@ const Header = () => {
                 }}
                 className={`w-8 flex ${
                   authUser?.photo ? "" : "hidden"
-                } md:flex md:w-12 h-8 md:h-12 rounded-full justify-center items-center hover:bg-black/[0.05] cursor-pointer relative`}
+                } md:flex md:w-12 h-8 md:h-12 rounded-full justify-center items-center hover:bg-black/[0.05] cursor-pointer relative transition-transform  active:scale-90`}
               >
                 {authUser?.photo ? (
                   <div className="w-[70%]">

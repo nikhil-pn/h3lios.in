@@ -9,7 +9,7 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 
-
+import { useSelector } from "react-redux";
 
 import { auth } from "@/firebase/firebase";
 import { useAuth } from "@/firebase/auth";
@@ -24,13 +24,18 @@ const register = () => {
   const [password, setPassword] = useState(null);
   const { authUser, isLoading, setAuthUser } = useAuth();
 
+  const { cartItems } = useSelector((state) => state.cart);
 
   const router = useRouter();
 
   useEffect(() => {
     if (!isLoading && authUser) {
-      console.log("reached reg");
-      router.push("/");
+      if (cartItems.length > 0) {
+        console.log("log here in cart items");
+        router.push("/cart");
+      } else {
+        router.push("/");
+      }
     }
   }, [authUser, isLoading]);
 
