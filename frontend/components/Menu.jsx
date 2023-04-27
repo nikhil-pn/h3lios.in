@@ -2,11 +2,20 @@ import Link from "next/link";
 import React from "react";
 import { BsChevronDown } from "react-icons/bs";
 
+// const data = [
+//   { id: 1, name: "Home", url: "/" },
+//   { id: 2, name: "About", url: "/about" },
+//   { id: 3, name: "Categories", subMenu: true },
+//   { id: 4, name: "Contact", url: "/contact" },
+// ];
 const data = [
-  { id: 1, name: "Home", url: "/" },
-  { id: 2, name: "About", url: "/about" },
-  { id: 3, name: "Categories", subMenu: true },
+  // { id: 1, name: "Home", url: "/" },
+  { id: 1, name: "Categories", subMenu: true },
+  { id: 2, name: "Fiverr", url: "/about" },
+  { id: 3, name: "Clients", url: "/about" },
   { id: 4, name: "Contact", url: "/contact" },
+  // { id: 5, name: "Buy on Fiverr", url: "/contact" },
+  // { id: 6, name: "Fiverr", url: "/contact" },
 ];
 
 const subMenuData = [
@@ -33,7 +42,7 @@ const Menu = ({ showCatMenu, setShowCatMenu, categories }) => {
 
                 {showCatMenu && (
                   <ul className="bg-white absolute top-6 left-0 min-w-[250px] px-1 py-1 text-black shadow-lg">
-                    {categories.map(({ attributes: c, id }) => {
+                    {categories?.map(({ attributes: c, id }) => {
                       return (
                         <Link
                           key={id}

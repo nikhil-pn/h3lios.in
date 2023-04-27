@@ -2,7 +2,7 @@ import CartItem from "@/components/CartItem";
 import Wrapper from "@/components/Wrapper";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 
 import { loadStripe } from "@stripe/stripe-js";
@@ -10,6 +10,8 @@ import { makePaymentRequest } from "@/utils/api";
 import { useAuth } from "@/firebase/auth";
 import { useRouter } from "next/router";
 
+import { addDoc, collection, query, where, getDocs } from "firebase/firestore";
+import { db } from "@/firebase/firebase";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
@@ -19,7 +21,8 @@ const cart = () => {
   const [loading, setLoading] = useState(false);
   const { cartItems } = useSelector((state) => state.cart);
   const { authUser } = useAuth();
-  const router = useRouter()
+  const router = useRouter();
+
 
   const subtotal = useMemo(() => {
     return cartItems.reduce((total, val) => total + val.attributes.price, 0);
@@ -42,14 +45,13 @@ const cart = () => {
         console.log(error);
       }
     }
-    router.push("/login")
-    
+    router.push("/login");
   };
 
   return (
     <div className="w-full md:py-20">
       <Wrapper>
-        {cartItems.length > 0 && (
+        {cartItems?.length > 0 && (
           <>
             {/* HEADING AND PARAGRAPH START */}
             <div className="text-center max-w-[800px] mx-auto mt-8 md:mt-0">
@@ -64,7 +66,8 @@ const cart = () => {
               {/* CART ITEMS START */}
               <div className="flex-[2]">
                 <div className="text-lg font-bold">Cart Items</div>
-                {cartItems.map((item, index) => (
+                {cartItems?.map((item, index) => (
+                  
                   <CartItem key={item.id} data={item}></CartItem>
                 ))}
               </div>
@@ -108,9 +111,10 @@ const cart = () => {
 
         {/* THIS IS EMPTY SCREEN */}
 
-        {cartItems.length < 1 && (
+        {cartItems?.length < 1 && (
           <div className="flex-[2] flex flex-col items-center pb-[50px] md:-mt-14">
             <Image
+              alt="empty cart image"
               src="/assets/empty-cart.jpg"
               width={300}
               height={300}

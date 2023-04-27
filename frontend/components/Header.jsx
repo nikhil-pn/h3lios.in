@@ -29,9 +29,11 @@ const Header = () => {
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [logOut, setLogOut] = useState(false);
 
-  const { cartItems } = useSelector((state) => state.cart);
+  const { cartItems , wishListItems } = useSelector((state) => state.cart);
 
   const { authUser, isLoading, signOut } = useAuth();
+
+  console.log(wishListItems, "wishlist header");
 
   const router = useRouter();
 
@@ -78,7 +80,11 @@ const Header = () => {
         className={`w-full h-[50px] md:h-[80px] bg-white flex items-center justify-between z-20 sticky top-0 transition-transform divide-gray-300 ${show}`}
       >
         <Wrapper className="h-[60px] flex justify-between items-center">
-          <Link href="/" onClick={() => setMobileMenu(false)} className="transition-transform active:scale-95">
+          <Link
+            href="/"
+            onClick={() => setMobileMenu(false)}
+            className="transition-transform active:scale-95"
+          >
             <img
               src="/assets/h3liosSvg.svg"
               alt="main logo"
@@ -119,12 +125,15 @@ const Header = () => {
             </section>
             {/* search function End */}
             {/* Icon start */}
-            <section className="w-8 hidden  md:flex md:w-12 h-8 md:h-12 rounded-full  justify-center items-center hover:bg-black/[0.05] cursor-pointer relative transition-transform active:scale-90">
-              <IoMdHeartEmpty className="text-[19px] md:text-[24px]" />
-              <div className="h-[14px] md:h-[18px] min-w-[14px] md:min-w-[14px] rounded-full bg-red-600 absolute top-1 left-5 md:left-7 text-white text-[10px] md:text-[12px] flex justify-center items-center px-[2px] md:px-[5px]">
-                2
-              </div>{" "}
-            </section>
+            <Link href="/wishlist">
+              <section className="w-8 hidden  md:flex md:w-12 h-8 md:h-12 rounded-full  justify-center items-center hover:bg-black/[0.05] cursor-pointer relative transition-transform active:scale-90">
+                <IoMdHeartEmpty className="text-[19px] md:text-[24px]" />
+                {}
+                <div className="h-[14px] md:h-[18px] min-w-[14px] md:min-w-[14px] rounded-full bg-red-600 absolute top-1 left-5 md:left-7 text-white text-[10px] md:text-[12px] flex justify-center items-center px-[2px] md:px-[5px]">
+                  2
+                </div>{" "}
+              </section>
+            </Link>
             {/* Icon End */}
             {/* Icon start */}
             <Link href="/cart">
@@ -137,17 +146,7 @@ const Header = () => {
                 )}
               </section>
             </Link>
-            {/* Icon End */}
-            {/* {authUser && <h1 >{authUser.username}</h1>} */}
-
-            {/* <h1 className="font-medium text-black text-sm font-urbanist mr-2">
-              Login
-            </h1>
-            <Link onClick={() => setShowProfileMenu(false)} href="/register">
-              <li className="h-10 flex text-[12px]  text-white justify-center items-center px-3 bg-black rounded-md">
-                Sign Up
-              </li>
-            </Link> */}
+           
 
             {authUser ? (
               <></>

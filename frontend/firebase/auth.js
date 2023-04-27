@@ -31,7 +31,6 @@ export default function useFirebaseAuth() {
       clear();
       return;
     }
-    console.log(user, 'user');
     setAuthUser({
       uid: user.uid,
       email: user.email,

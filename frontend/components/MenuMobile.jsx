@@ -31,7 +31,7 @@ const MenuMobile = ({
       <div className="">
         <ul className="flex flex-col md:hidden font-bold absolute top-[50px] left-0 w-full h-[calc(100vh-50px)] bg-white border-t text-black">
           {authUser && (
-            <section className="grid h-20 justify-center place-content-center mt-10">
+            <section key="3i" className="grid h-20 justify-center place-content-center mt-10">
               <h1 className=" text-2xl/3 opacity-90 ">
                 Welcome back {authUser?.username}
               </h1>

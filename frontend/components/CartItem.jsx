@@ -1,62 +1,32 @@
 import { useAuth } from "@/firebase/auth";
 import { db } from "@/firebase/firebase";
 import { updateCart, removeFromCart } from "@/store/cartSlice";
-import { addDoc, collection, query, where, getDocs } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  query,
+  where,
+  getDocs,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
 
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 const CartItem = ({ data }) => {
   console.log(data, "data");
-  const [todos, setTodos] = useState([]);
 
-  const p = data.attributes;
-  // const p =
-  console.log(todos, "todos");
-
-  // console.log(p, "p data");
-
-  //fireStore
-
-  // fetching item form fireStore
-
-  const fetchCartItems = async (uid) => {
-    try {
-      // Create a Firestore query to fetch all the todos for the user with the given ID.
-      const q = query(collection(db, "cart"), where("owner", "==", uid));
-
-      // Execute the query and get a snapshot of the results.
-      const querySnapshot = await getDocs(q);
-
-      // Extract the data from each todo document and add it to the data array.
-      let data = [];
-      querySnapshot.forEach((item) => {
-        data.push({ ...item.data(), id: item.id });
-      });
-      setTodos(data);
-    } catch (error) {
-      console.error(error, "Error");
-    }
-  };
-
-  //adding item to fireStore
   const { authUser } = useAuth();
-  console.log(authUser, "authUser");
-  const addItemsToFireStore = async () => {
-    try {
-      const docRef = await addDoc(collection(db, "cart"), {
-        owner: authUser.uid,
-        content: p,
-      });
+  const { cartItems } = useSelector((state) => state.cart);
+  // console.log(cartItems, "cartItems");
 
-      console.log(docRef.id, "doc id");
-      fetchCartItems(authUser.uid);
-    } catch (error) {
-      console.error(error, "Error firestore");
-    }
-  };
+  const p = data?.attributes;
+
+
   const dispatch = useDispatch();
   const updateCartItem = (e, key) => {
     let payload = {
@@ -72,8 +42,8 @@ const CartItem = ({ data }) => {
       {/* IMAGE START */}
       <div className="shrink-0 aspect-square w-[50px] md:w-[120px]">
         <Image
-          src={p.thumbnail.data.attributes.url}
-          alt={p.name}
+          src={p?.thumbnail?.data?.attributes?.url}
+          alt={p?.name}
           width={120}
           height={120}
         />
@@ -84,36 +54,24 @@ const CartItem = ({ data }) => {
         <div className="flex flex-col md:flex-row justify-between">
           {/* PRODUCT TITLE */}
           <div className="text-lg md:text-2xl font-semibold text-black/[0.8]">
-            {p.name}
+            {p?.name}
           </div>
 
-          {/* {todos && <h1>{todos?.[0].content.name}</h1>} */}
-          <div>
-            {todos.length > 0 ? (
-              <ul>
-                {todos.map((todo) => (
-                  <li key={todo.content.id}>{todo.content.name}</li>
-                ))}
-              </ul>
-            ) : (
-              <p>No items to display</p>
-            )}
-          </div>
 
           {/* PRODUCT SUBTITLE */}
           <div className="text-sm md:text-md font-medium text-black/[0.5] block md:hidden">
-            {p.subtitle}
+            {p?.subtitle}
           </div>
 
           {/* PRODUCT PRICE */}
           <div className="text-sm md:text-md font-bold text-black/[0.5] mt-2">
-            MRP:&#36; {p.price}
+            MRP:&#36; {p?.price}
           </div>
         </div>
 
         {/* PRODUCT SUBTITLE */}
         <div className="text-md font-medium text-black/[0.5] hidden md:block">
-          {p.subtitle}
+          {p?.subtitle}
         </div>
 
         <div className="flex items-center justify-between mt-4">
@@ -124,7 +82,7 @@ const CartItem = ({ data }) => {
                 className="hover:text-black"
                 onChange={(e) => updateCartItem(e, "selectedSize")}
               >
-                {p.size.data.map((item, i) => {
+                {p?.size?.data?.map((item, i) => {
                   return (
                     <option
                       key={i}
@@ -156,10 +114,13 @@ const CartItem = ({ data }) => {
             </div>
           </div>
           <RiDeleteBin6Line
-            onClick={() => dispatch(removeFromCart({ id: data.id }))}
+            onClick={() => {
+              console.log("remove btn");
+              dispatch(removeFromCart({ id: data.id }));
+            }}
             className="cursor-pointer text-black/[0.5] hover:text-black text-[16px] md:text-[20px]"
           />
-          <button onClick={addItemsToFireStore}>add to fire store</button>
+          {/* <button onClick={addItemsToFireStore}>add to fire store</button> */}
         </div>
       </div>
     </div>

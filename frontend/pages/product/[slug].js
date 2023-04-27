@@ -8,17 +8,48 @@ import { getDiscountedPricePercentage } from "@/utils/helper";
 import ReactMarkdown from "react-markdown";
 
 import { useSelector, useDispatch } from "react-redux";
-import { addToCart } from "@/store/cartSlice";
+import { addToCart, addToWishList } from "@/store/cartSlice";
 import { ToastContainer, toast } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
+import Link from "next/link";
+
+import { addDoc, collection, query, where, getDocs } from "firebase/firestore";
+import { db } from "@/firebase/firebase";
+import { useAuth } from "@/firebase/auth";
 
 const ProductDetails = ({ product, products }) => {
   const [selectedSize, setSelectedSize] = useState();
   const [showError, setShowError] = useState(true);
+  const [itemAddedToCart, setItemAddedToCart] = useState(false);
+  const [cartItem, setCartItem] = useState(null);
   const dispatch = useDispatch();
 
+  const { authUser } = useAuth();
+
   const p = product?.data?.[0]?.attributes;
+
+  console.log(product?.data?.[0]?.id, "p slug data attribute");
+
+  // console.log(product?.data?.[0].id, "product 0");
+
+  //adding item to fireStore
+  const addItemsToFireStore = async () => {
+    try {
+      const docRef = await addDoc(collection(db, "wishlist"), {
+        owner: authUser.uid,
+        ...product?.data?.[0],
+        selectedSize,
+        oneQuantityPrice: p.price,
+        productId: product?.data?.[0].id,
+      });
+
+      console.log(docRef.id, "doc id");
+    } catch (error) {
+      console.error(error, "Error firestore");
+    }
+  };
+  //deleting from firestore
 
   const notify = () => {
     toast.success("Success. Check Your Cart!", {
@@ -126,8 +157,44 @@ const ProductDetails = ({ product, products }) => {
             {/* PRODUCT SIZE RANGE END */}
 
             {/* ADD TO CART BUTTON START */}
+            {itemAddedToCart ? (
+              <Link href="/cart">
+                <button className="w-full py-4 rounded-full bg-black text-white text-lg font-medium transition-transform active:scale-95 mb-3 hover:opacity-75">
+                  Go to Cart
+                </button>
+              </Link>
+            ) : (
+              <button
+                className="w-full py-4 rounded-full bg-black text-white text-lg font-medium transition-transform active:scale-95 mb-3 hover:opacity-75"
+                onClick={() => {
+                  if (!selectedSize) {
+                    setShowError(true);
+                    document.getElementById("sizesGrid").scrollIntoView({
+                      block: "center",
+                      behavior: "smooth",
+                    });
+                  } else {
+                    setItemAddedToCart(true);
+
+                    dispatch(
+                      addToCart({
+                        ...product?.data?.[0],
+                        selectedSize,
+                        oneQuantityPrice: p.price,
+                      })
+                    );
+                    notify();
+                  }
+                }}
+              >
+                Add to Cart
+              </button>
+            )}
+            {/* ADD TO CART BUTTON END */}
+
+            {/* WHISHLIST BUTTON START */}
             <button
-              className="w-full py-4 rounded-full bg-black text-white text-lg font-medium transition-transform active:scale-95 mb-3 hover:opacity-75"
+              className="w-full py-4 rounded-full border border-black text-lg font-medium transition-transform active:scale-95 flex items-center justify-center gap-2 hover:opacity-75 mb-10"
               onClick={() => {
                 if (!selectedSize) {
                   setShowError(true);
@@ -136,23 +203,19 @@ const ProductDetails = ({ product, products }) => {
                     behavior: "smooth",
                   });
                 } else {
-                  dispatch(
-                    addToCart({
-                      ...product?.data?.[0],
-                      selectedSize,
-                      oneQuantityPrice: p.price,
-                    })
-                  );
-                  notify();
+                  console.log("clicked ");
+                  addItemsToFireStore(),
+                    dispatch(
+                      addToWishList({
+                        // productId: product?.data?.[0]?.id,
+                        ...product?.data?.[0],
+                        selectedSize,
+                        oneQuantityPrice: p.price,
+                      })
+                    );
                 }
               }}
             >
-              Add to Cart
-            </button>
-            {/* ADD TO CART BUTTON END */}
-
-            {/* WHISHLIST BUTTON START */}
-            <button className="w-full py-4 rounded-full border border-black text-lg font-medium transition-transform active:scale-95 flex items-center justify-center gap-2 hover:opacity-75 mb-10">
               Whishlist
               <IoMdHeartEmpty size={20} />
             </button>
