@@ -6,16 +6,6 @@ import { useEffect } from "react";
 import { useState } from "react";
 
 function Home({ products }) {
-  // const [data, setData] = useState(null);
-
-  // useEffect(() => {
-  //   fetchProducts()
-  // }, []);
-
-  // const fetchProducts = async () => {
-  //   const { data } = await fetchDataFromApi("/api/products");
-  //   setData(data);
-  // };
   return (
     <main>
       <HeroBanner></HeroBanner>

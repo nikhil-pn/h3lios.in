@@ -29,7 +29,7 @@ const ProductDetails = ({ product, products }) => {
 
   const p = product?.data?.[0]?.attributes;
 
-  console.log(product?.data?.[0]?.id, "p slug data attribute");
+  // console.log(product?.data?.[0]?.id, "p slug data attribute");
 
   // console.log(product?.data?.[0].id, "product 0");
 

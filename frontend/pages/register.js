@@ -34,6 +34,7 @@ const register = () => {
         console.log("log here in cart items");
         router.push("/cart");
       } else {
+        
         router.push("/");
       }
     }

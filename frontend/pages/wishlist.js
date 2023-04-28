@@ -22,33 +22,11 @@ const wishlist = () => {
   const { wishListItems } = useSelector((state) => state.cart);
   console.log(wishListItems, "wishListItems");
   const [wishLists, setWishLists] = useState([]);
-  // const [delete, setDelete] = useState(false);
   const [deleted, setdeleted] = useState(false);
-
-  // const mainArray = wishLists
-
-  // const uniqueArray = wishLists?.reduce((acc, obj)=>{
-  //   if(!acc.find((item)=> item.productId === obj.productId)){
-  //     acc.push(obj)
-  //   }
-  //   return acc;
-  // },[])
-
-  // console.log(uniqueArray, "uniqueArray");
-
-
-
-  // console.log(newArray, "newarray");
 
   const dispatch = useDispatch();
 
   const { authUser } = useAuth();
- 
-  console.log(wishLists.length, "wishlist length");
-
-  // dispatch(addToWishList({
-  //   wishlistNumber : wishLists.length
-  // }))
 
   useEffect(() => {
     if (!!authUser) {
@@ -64,19 +42,13 @@ const wishlist = () => {
 
   const fetchWishLists = async (uid) => {
     try {
-      // Create a Firestore query to fetch all the todos for the user with the given ID.
       const q = query(collection(db, "wishlist"), where("owner", "==", uid));
-
-      // Execute the query and get a snapshot of the results.
       const querySnapshot = await getDocs(q);
-
-      // Extract the data from each todo document and add it to the data array.
       let data = [];
       querySnapshot.forEach((wish) => {
         data.push({ ...wish.data(), id: wish.id });
       });
 
-      // Set the todos state with the data array.
       setWishLists(data);
     } catch (error) {
       console.error("An error occured", error);
@@ -84,10 +56,7 @@ const wishlist = () => {
   };
   const deleteWishList = async (docId) => {
     try {
-      // Delete the todo document with the given ID from the "todos" collection in Firestore.
       await deleteDoc(doc(db, "wishlist", docId));
-
-      // After deleting the todo, fetch all todos for the current user and update the state with the new data.
       fetchWishLists(authUser.uid);
     } catch (error) {
       console.error("An error occured", error);
