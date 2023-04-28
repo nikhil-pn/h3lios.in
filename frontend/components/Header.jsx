@@ -8,7 +8,6 @@ import { IoMdHeartEmpty } from "react-icons/io";
 import { BiMenuAltRight } from "react-icons/bi";
 import { VscChromeClose } from "react-icons/vsc";
 import { AiOutlineSearch } from "react-icons/ai";
-import { RxAvatar } from "react-icons/rx";
 
 import MenuMobile from "./MenuMobile";
 import Search from "./Search";
@@ -19,16 +18,7 @@ import ProfileMenu from "./ProfileMenu";
 import { useAuth } from "@/firebase/auth";
 import { useRouter } from "next/router";
 
-import {
-  addDoc,
-  updateDoc,
-  collection,
-  query,
-  where,
-  getDocs,
-  deleteDoc,
-  doc,
-} from "firebase/firestore";
+import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "@/firebase/firebase";
 const Header = () => {
   const [mobileMenu, setMobileMenu] = useState(false);
@@ -41,14 +31,9 @@ const Header = () => {
   const [logOut, setLogOut] = useState(false);
   const [wishLists, setWishLists] = useState([]);
 
-  const { cartItems, wishListItems } = useSelector((state) => state.cart);
-
+  const { cartItems } = useSelector((state) => state.cart);
   const { authUser, isLoading, signOut } = useAuth();
-
   const router = useRouter();
-
-  // console.log(authUser.uid, "uid");
-
 
   const fetchWishLists = async (uid) => {
     try {
@@ -64,8 +49,6 @@ const Header = () => {
       console.error("An error occured", error);
     }
   };
-
-
 
   useEffect(() => {
     if (!isLoading && !authUser) {
@@ -104,10 +87,11 @@ const Header = () => {
     setCategories(data);
   };
 
-  if(authUser){
-    fetchWishLists(authUser.uid)
-  }
-
+  useEffect(() => {
+    if (authUser) {
+      fetchWishLists(authUser.uid);
+    }
+  }, []);
 
   return (
     <>
@@ -152,10 +136,7 @@ const Header = () => {
               onClick={() => setShowSearch(true)}
             >
               <button className="">
-                <AiOutlineSearch
-                  className="text-[19px] md:text-[24px] "
-                  // onClick={() => setShowSearch(true)}
-                />
+                <AiOutlineSearch className="text-[19px] md:text-[24px] " />
               </button>
             </section>
             {/* search function End */}

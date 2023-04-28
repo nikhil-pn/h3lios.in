@@ -31,8 +31,7 @@ function Search({ setShowSearch }) {
   if (!query.length) {
     data = null;
   }
-  console.log(data, "data");
-  console.log(query, "query");
+
   return (
     <div id="search-modal" className="overflow-auto">
       <div id="form-field" className="">
@@ -44,7 +43,11 @@ function Search({ setShowSearch }) {
           placeholder="Search for Products"
           onChange={onHandleChange}
         />
-        <MdClose  id="close-btn" className="transition-transform rounded-full active:scale-90" onClick={() => setShowSearch(false)} />
+        <MdClose
+          id="close-btn"
+          className="transition-transform rounded-full active:scale-90"
+          onClick={() => setShowSearch(false)}
+        />
       </div>
       <div id="search-result-content" className="w-full">
         {!data?.data?.length && (
@@ -52,15 +55,13 @@ function Search({ setShowSearch }) {
             Start typing to see products you are looking for.
           </div>
         )}
-        <div id="search-results" >
+        <div id="search-results">
           {data?.data?.map((item) => (
             <Link href={"/product/" + item.attributes.slug}>
               <div
                 key={item.id}
                 id="search-result-items"
                 onClick={() => {
-                  console.log("Clicked item");
-                  console.log(item.attributes.slug);
                   setShowSearch(false);
                 }}
               >
@@ -70,7 +71,6 @@ function Search({ setShowSearch }) {
                     src={item.attributes.image.data[0].attributes.url}
                     alt={item.attributes.name}
                   />
-                  
                 </div>
                 <div id="prod-details">
                   <span id="prod-name">{item.attributes.name}</span>
@@ -80,7 +80,6 @@ function Search({ setShowSearch }) {
             </Link>
           ))}
         </div>
-        ;
       </div>
     </div>
   );

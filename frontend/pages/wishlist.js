@@ -1,12 +1,10 @@
 import Wrapper from "@/components/Wrapper";
-import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useAuth } from "@/firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import Wish from "@/components/Wish";
 import {
-  addDoc,
   updateDoc,
   collection,
   query,
@@ -16,16 +14,12 @@ import {
   doc,
 } from "firebase/firestore";
 import { db } from "@/firebase/firebase";
-import { addToCart, addToWishList } from "@/store/cartSlice";
+import { addToCart} from "@/store/cartSlice";
 
 const wishlist = () => {
-  const { wishListItems } = useSelector((state) => state.cart);
-  console.log(wishListItems, "wishListItems");
   const [wishLists, setWishLists] = useState([]);
   const [deleted, setdeleted] = useState(false);
-
   const dispatch = useDispatch();
-
   const { authUser } = useAuth();
 
   useEffect(() => {
@@ -106,7 +100,7 @@ const wishlist = () => {
             <div className="flex-[2]">
               <div className="text-lg font-bold">Wishlist Items</div>
 
-              {wishLists?.map((item, index) => (
+              {wishLists?.map((item) => (
                 <Wish
                   key={item.id}
                   data={item}

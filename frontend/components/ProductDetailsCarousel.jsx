@@ -19,10 +19,10 @@ const ProductDetailsCarousel = ({ images }) => {
             src={img.attributes.url}
           ></img>
         ))}
-        {/* <img src="/assets/p7.png" /> */}
       </Carousel>
     </div>
   );
 };
 
 export default ProductDetailsCarousel;
+

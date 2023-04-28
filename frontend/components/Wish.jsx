@@ -4,25 +4,17 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { MdAddShoppingCart } from "react-icons/md";
 import { BsCartCheckFill } from "react-icons/bs";
 
-import { useSelector } from "react-redux";
 import Link from "next/link";
 
 const Wish = ({
   data,
-  setdeleted,
   deleteWishList,
   updateWishList,
   addToCart,
   dispatch,
 }) => {
-
-  console.log(data, "data ");
   const p = data?.attributes;
-  // console.log(p, "p");
-  const { cartItems } = useSelector((state) => state.cart);
 
-  const c = cartItems.length + 1;
-  console.log(c, "c");
   const [clicked, setClicked] = useState(false);
 
   return (
@@ -112,9 +104,6 @@ const Wish = ({
             <RiDeleteBin6Line
               onClick={() => {
                 deleteWishList(data.id);
-
-                // setdeleted(true)
-                console.log("remove btn");
               }}
               className="cursor-pointer text-black/[0.5] hover:text-black text-[16px] md:text-[20px]"
             />

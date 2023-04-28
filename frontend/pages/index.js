@@ -2,8 +2,6 @@ import HeroBanner from "@/components/HeroBanner";
 import ProductCard from "@/components/ProductCard";
 import Wrapper from "@/components/Wrapper";
 import { fetchDataFromApi } from "@/utils/api";
-import { useEffect } from "react";
-import { useState } from "react";
 
 function Home({ products }) {
   return (

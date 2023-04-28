@@ -1,20 +1,21 @@
 import ProductDetailsCarousel from "@/components/ProductDetailsCarousel";
 import Wrapper from "@/components/Wrapper";
 import { IoMdHeartEmpty } from "react-icons/io";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import RelatedProducts from "@/components/RelatedProducts";
 import { fetchDataFromApi } from "@/utils/api";
 import { getDiscountedPricePercentage } from "@/utils/helper";
 import ReactMarkdown from "react-markdown";
+import YouTube from "react-youtube";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addToCart, addToWishList } from "@/store/cartSlice";
 import { ToastContainer, toast } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
 import Link from "next/link";
 
-import { addDoc, collection, query, where, getDocs } from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 import { db } from "@/firebase/firebase";
 import { useAuth } from "@/firebase/auth";
 
@@ -22,16 +23,18 @@ const ProductDetails = ({ product, products }) => {
   const [selectedSize, setSelectedSize] = useState();
   const [showError, setShowError] = useState(true);
   const [itemAddedToCart, setItemAddedToCart] = useState(false);
-  const [cartItem, setCartItem] = useState(null);
+  const [widthh, setWidth] = useState(0);
   const dispatch = useDispatch();
-
   const { authUser } = useAuth();
-
   const p = product?.data?.[0]?.attributes;
 
-  // console.log(product?.data?.[0]?.id, "p slug data attribute");
+  const myDivRef = useRef(null);
 
-  // console.log(product?.data?.[0].id, "product 0");
+  useEffect(() => {
+    const divWidth = myDivRef.current.clientWidth;
+    console.log(`The width of my div is: ${divWidth}px`);
+    setWidth(divWidth);
+  }, []);
 
   //adding item to fireStore
   const addItemsToFireStore = async () => {
@@ -49,7 +52,6 @@ const ProductDetails = ({ product, products }) => {
       console.error(error, "Error firestore");
     }
   };
-  //deleting from firestore
 
   const notify = () => {
     toast.success("Success. Check Your Cart!", {
@@ -207,7 +209,6 @@ const ProductDetails = ({ product, products }) => {
                   addItemsToFireStore(),
                     dispatch(
                       addToWishList({
-                        // productId: product?.data?.[0]?.id,
                         ...product?.data?.[0],
                         selectedSize,
                         oneQuantityPrice: p.price,
@@ -222,11 +223,38 @@ const ProductDetails = ({ product, products }) => {
             {/* WHISHLIST BUTTON END */}
 
             {/* PRODUCT DISCRIPTION START */}
-            <div>
+            <div ref={myDivRef}>
               <div className="text-lg font-bold mb-5">Product Details</div>
               <div className=" markdown text-md mb-5">
                 <ReactMarkdown>{p.description}</ReactMarkdown>
               </div>
+            </div>
+            <div>
+              <div className="text-lg font-bold mb-5">Product Video</div>
+
+              <section className=" ">
+                {widthh && (
+                  <YouTube
+                  id="rounded-player"
+                    opts={{
+                      width: widthh,
+                      height: "220",
+                      showinfo: 0,
+                      showTitle: false,
+
+                      playerVars: {
+                        autoplay: 1,
+                        playsinline: 1,
+                        controls: 0,
+                        muted:1,
+                        loop: 1,
+                        showRelatedVideos: false,
+                      },
+                    }}
+                    videoId="WNZzwM2KIEQ"
+                  ></YouTube>
+                )}
+              </section>
             </div>
             {/* PRODUCT DISCRIPTION END */}
           </div>

@@ -10,7 +10,6 @@ import {
 } from "firebase/auth";
 
 import { useSelector } from "react-redux";
-
 import { auth } from "@/firebase/firebase";
 import { useAuth } from "@/firebase/auth";
 import { useRouter } from "next/router";
@@ -23,18 +22,14 @@ const register = () => {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const { authUser, isLoading, setAuthUser } = useAuth();
-
   const { cartItems } = useSelector((state) => state.cart);
-
   const router = useRouter();
 
   useEffect(() => {
     if (!isLoading && authUser) {
       if (cartItems.length > 0) {
-        console.log("log here in cart items");
         router.push("/cart");
       } else {
-        
         router.push("/");
       }
     }
@@ -63,7 +58,6 @@ const register = () => {
   const signInWithGoogle = async () => {
     try {
       const user = await signInWithPopup(auth, provider);
-      console.log(user, "user google");
     } catch (error) {
       console.error("An error occured", error);
     }

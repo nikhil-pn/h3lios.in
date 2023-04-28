@@ -2,16 +2,13 @@ import CartItem from "@/components/CartItem";
 import Wrapper from "@/components/Wrapper";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useMemo, useState } from "react";
+import React, {useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 
 import { loadStripe } from "@stripe/stripe-js";
 import { makePaymentRequest } from "@/utils/api";
 import { useAuth } from "@/firebase/auth";
 import { useRouter } from "next/router";
-
-import { addDoc, collection, query, where, getDocs } from "firebase/firestore";
-import { db } from "@/firebase/firebase";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
@@ -66,7 +63,7 @@ const cart = () => {
               {/* CART ITEMS START */}
               <div className="flex-[2]">
                 <div className="text-lg font-bold">Cart Items</div>
-                {cartItems?.map((item, index) => (
+                {cartItems?.map((item) => (
                   
                   <CartItem key={item.id} data={item}></CartItem>
                 ))}

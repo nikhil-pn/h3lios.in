@@ -1,32 +1,11 @@
-import { useAuth } from "@/firebase/auth";
-import { db } from "@/firebase/firebase";
 import { updateCart, removeFromCart } from "@/store/cartSlice";
-import {
-  addDoc,
-  collection,
-  query,
-  where,
-  getDocs,
-  deleteDoc,
-  doc,
-} from "firebase/firestore";
 
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
 
 const CartItem = ({ data }) => {
-  console.log(data, "data");
-
-  const { authUser } = useAuth();
-  const { cartItems } = useSelector((state) => state.cart);
-  // console.log(cartItems, "cartItems");
-
   const p = data?.attributes;
-
-
   const dispatch = useDispatch();
   const updateCartItem = (e, key) => {
     let payload = {
@@ -56,7 +35,6 @@ const CartItem = ({ data }) => {
           <div className="text-lg md:text-2xl font-semibold text-black/[0.8]">
             {p?.name}
           </div>
-
 
           {/* PRODUCT SUBTITLE */}
           <div className="text-sm md:text-md font-medium text-black/[0.5] block md:hidden">
@@ -120,7 +98,6 @@ const CartItem = ({ data }) => {
             }}
             className="cursor-pointer text-black/[0.5] hover:text-black text-[16px] md:text-[20px]"
           />
-          {/* <button onClick={addItemsToFireStore}>add to fire store</button> */}
         </div>
       </div>
     </div>

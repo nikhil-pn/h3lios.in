@@ -1,15 +1,14 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
-
-import { useSelector } from "react-redux";
-
-import { auth } from "@/firebase/firebase";
 import {
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
+
+import { useSelector } from "react-redux";
+import { auth } from "@/firebase/firebase";
 import { useAuth } from "@/firebase/auth";
 import { useRouter } from "next/router";
 import Loader from "@/components/Loader";
@@ -24,8 +23,6 @@ const login = () => {
 
   const router = useRouter();
 
-  console.log(cartItems, "cartItems");
-
   useEffect(() => {
     console.log(isLoading, "isloading");
     console.log(authUser, "authUser");
@@ -35,7 +32,6 @@ const login = () => {
         console.log("log here in cart items");
         router.push("/cart");
       } else {
-        
         router.push("/");
       }
     }
