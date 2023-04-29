@@ -1,15 +1,14 @@
 import ProductDetailsCarousel from "@/components/ProductDetailsCarousel";
 import Wrapper from "@/components/Wrapper";
 import { IoMdHeartEmpty } from "react-icons/io";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import RelatedProducts from "@/components/RelatedProducts";
 import { fetchDataFromApi } from "@/utils/api";
 import { getDiscountedPricePercentage } from "@/utils/helper";
 import ReactMarkdown from "react-markdown";
-import YouTube from "react-youtube";
 
 import { useDispatch } from "react-redux";
-import { addToCart, addToWishList } from "@/store/cartSlice";
+import { addToCart } from "@/store/cartSlice";
 import { ToastContainer, toast } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
@@ -24,18 +23,11 @@ const ProductDetails = ({ product, products }) => {
   const [selectedSize, setSelectedSize] = useState();
   const [showError, setShowError] = useState(true);
   const [itemAddedToCart, setItemAddedToCart] = useState(false);
-  const [widthh, setWidth] = useState(0);
   const dispatch = useDispatch();
   const { authUser } = useAuth();
+  const [clickWishList, setClickedWishList] = useState(false);
+
   const p = product?.data?.[0]?.attributes;
-
-  const myDivRef = useRef(null);
-
-  useEffect(() => {
-    const divWidth = myDivRef.current.clientWidth;
-    console.log(`The width of my div is: ${divWidth}px`);
-    setWidth(divWidth);
-  }, []);
 
   //adding item to fireStore
   const addItemsToFireStore = async () => {
@@ -56,6 +48,19 @@ const ProductDetails = ({ product, products }) => {
 
   const notify = () => {
     toast.success("Success. Check Your Cart!", {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+  };
+
+  const notifyWishList = () => {
+    toast.success("Success. Check Your Wishlist!", {
       position: "bottom-right",
       autoClose: 5000,
       hideProgressBar: false,
@@ -207,24 +212,21 @@ const ProductDetails = ({ product, products }) => {
                   });
                 } else {
                   console.log("clicked ");
-                  addItemsToFireStore(),
-                    dispatch(
-                      addToWishList({
-                        ...product?.data?.[0],
-                        selectedSize,
-                        oneQuantityPrice: p.price,
-                      })
-                    );
+                  addItemsToFireStore();
+                  setClickedWishList(true);
+                  notifyWishList();
                 }
               }}
             >
               Whishlist
-              <IoMdHeartEmpty size={20} />
+              <div className={`${clickWishList ? "text-red-600" : ""}`}>
+                <IoMdHeartEmpty size={20} />
+              </div>
             </button>
             {/* WHISHLIST BUTTON END */}
 
             {/* PRODUCT DISCRIPTION START */}
-            <div ref={myDivRef}>
+            <div>
               <div className="text-lg font-bold mb-5">Product Details</div>
               <div className=" markdown text-md mb-5">
                 <ReactMarkdown>{p.description}</ReactMarkdown>
@@ -234,30 +236,7 @@ const ProductDetails = ({ product, products }) => {
               <div className="text-lg font-bold mb-5">Product Video</div>
 
               <section className="">
-                {/* {widthh && (
-                  <YouTube
-                  id="rounded-player"
-                    opts={{
-                      width: widthh,
-                      height: "220",
-                      showinfo: 0,
-                      showTitle: false,
-
-                      playerVars: {
-                        // autoplay: 1,
-                        playsinline: 1,
-                        controls: 0,
-                        muted:1,
-                        // loop: 1,
-                        showRelatedVideos: false,
-                        showinfo: 0,
-                        suggestedVideos: false
-                      },
-                    }}
-                    videoId="WNZzwM2KIEQ"
-                  ></YouTube>
-                  )} */}
-                  <YouTubePlayer videoId="WNZzwM2KIEQ"></YouTubePlayer>
+                <YouTubePlayer videoId="WNZzwM2KIEQ"></YouTubePlayer>
               </section>
             </div>
             {/* PRODUCT DISCRIPTION END */}

@@ -4,7 +4,7 @@ import Image from "next/image";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useDispatch } from "react-redux";
 
-const CartItem = ({ data }) => {
+const CartItem = ({ data, deleteButton }) => {
   const p = data?.attributes;
   const dispatch = useDispatch();
   const updateCartItem = (e, key) => {
@@ -95,6 +95,7 @@ const CartItem = ({ data }) => {
             onClick={() => {
               console.log("remove btn");
               dispatch(removeFromCart({ id: data.id }));
+              deleteButton()
             }}
             className="cursor-pointer text-black/[0.5] hover:text-black text-[16px] md:text-[20px]"
           />

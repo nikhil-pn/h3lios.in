@@ -14,11 +14,29 @@ const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
 );
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const cart = () => {
   const [loading, setLoading] = useState(false);
   const { cartItems } = useSelector((state) => state.cart);
   const { authUser } = useAuth();
   const router = useRouter();
+
+  const deleteButton = () => {
+    toast.error("Cart Item Deleted", {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+  };
+
+
 
 
   const subtotal = useMemo(() => {
@@ -48,6 +66,7 @@ const cart = () => {
   return (
     <div className="w-full md:py-20">
       <Wrapper>
+      <ToastContainer></ToastContainer>
         {cartItems?.length > 0 && (
           <>
             {/* HEADING AND PARAGRAPH START */}
@@ -65,7 +84,7 @@ const cart = () => {
                 <div className="text-lg font-bold">Cart Items</div>
                 {cartItems?.map((item) => (
                   
-                  <CartItem key={item.id} data={item}></CartItem>
+                  <CartItem key={item.id} data={item} deleteButton={deleteButton}></CartItem>
                 ))}
               </div>
               {/* CART ITEMS END */}
@@ -117,7 +136,7 @@ const cart = () => {
               height={300}
               className="w-[300px] md:w-[400px]"
             />
-            <span className="text-xl font-bold">Your cart is empty</span>
+            <span className="text-xl font-bold opacity-80">Your cart is empty</span>
             <span className="text-center mt-4">
               Looks like you have not added anything in your cart.
               <br />

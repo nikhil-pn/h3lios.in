@@ -4,7 +4,6 @@ export const cartSlice = createSlice({
   name: "cart",
   initialState: {
     cartItems: [],
-    wishListItems: [],
   },
   reducers: {
     addToCart: (state, action) => {
@@ -38,20 +37,11 @@ export const cartSlice = createSlice({
       );
     },
 
-    addToWishList: (state, action) => {
-      const item = state.wishListItems.find((p) => p.id === action.payload.id);
-      if (item) {
-        item.quantity++;
-        item.attributes.price = item.oneQuantityPrice * item.quantity;
-      } else {
-        state.wishListItems.push({ ...action.payload, quantity: 1 });
-      }
-    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addToCart, updateCart, removeFromCart, addToWishList } =
+export const { addToCart, updateCart, removeFromCart} =
   cartSlice.actions;
 
 export default cartSlice.reducer;

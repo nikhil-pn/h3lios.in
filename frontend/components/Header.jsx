@@ -18,8 +18,6 @@ import ProfileMenu from "./ProfileMenu";
 import { useAuth } from "@/firebase/auth";
 import { useRouter } from "next/router";
 
-import { collection, query, where, getDocs } from "firebase/firestore";
-import { db } from "@/firebase/firebase";
 const Header = () => {
   const [mobileMenu, setMobileMenu] = useState(false);
   const [showCatMenu, setShowCatMenu] = useState(false);
@@ -29,26 +27,10 @@ const Header = () => {
   const [categories, setCategories] = useState(null);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [logOut, setLogOut] = useState(false);
-  const [wishLists, setWishLists] = useState([]);
 
   const { cartItems } = useSelector((state) => state.cart);
   const { authUser, isLoading, signOut } = useAuth();
   const router = useRouter();
-
-  const fetchWishLists = async (uid) => {
-    try {
-      const q = query(collection(db, "wishlist"), where("owner", "==", uid));
-      const querySnapshot = await getDocs(q);
-      let data = [];
-      querySnapshot.forEach((wish) => {
-        data.push({ ...wish.data(), id: wish.id });
-      });
-
-      setWishLists(data);
-    } catch (error) {
-      console.error("An error occured", error);
-    }
-  };
 
   useEffect(() => {
     if (!isLoading && !authUser) {
@@ -86,12 +68,6 @@ const Header = () => {
     const { data } = await fetchDataFromApi("/api/categories?populate=*");
     setCategories(data);
   };
-
-  useEffect(() => {
-    if (authUser) {
-      fetchWishLists(authUser.uid);
-    }
-  }, []);
 
   return (
     <>
@@ -144,12 +120,7 @@ const Header = () => {
             <Link href="/wishlist">
               <section className="w-8 hidden  md:flex md:w-12 h-8 md:h-12 rounded-full  justify-center items-center hover:bg-black/[0.05] cursor-pointer relative transition-transform active:scale-90">
                 <IoMdHeartEmpty className="text-[19px] md:text-[24px]" />
-                {}
-                {wishLists.length > 0 && (
-                  <div className="h-[14px] md:h-[18px] min-w-[14px] md:min-w-[14px] rounded-full bg-red-600 absolute top-1 left-5 md:left-7 text-white text-[10px] md:text-[12px] flex justify-center items-center px-[2px] md:px-[5px]">
-                    {wishLists.length}
-                  </div>
-                )}
+                
               </section>
             </Link>
             {/* Icon End */}
