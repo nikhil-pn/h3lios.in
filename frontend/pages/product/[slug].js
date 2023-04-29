@@ -18,6 +18,7 @@ import Link from "next/link";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "@/firebase/firebase";
 import { useAuth } from "@/firebase/auth";
+import YouTubePlayer from "@/components/YoutubePlayer";
 
 const ProductDetails = ({ product, products }) => {
   const [selectedSize, setSelectedSize] = useState();
@@ -232,8 +233,8 @@ const ProductDetails = ({ product, products }) => {
             <div>
               <div className="text-lg font-bold mb-5">Product Video</div>
 
-              <section className=" ">
-                {widthh && (
+              <section className="">
+                {/* {widthh && (
                   <YouTube
                   id="rounded-player"
                     opts={{
@@ -243,17 +244,20 @@ const ProductDetails = ({ product, products }) => {
                       showTitle: false,
 
                       playerVars: {
-                        autoplay: 1,
+                        // autoplay: 1,
                         playsinline: 1,
                         controls: 0,
                         muted:1,
-                        loop: 1,
+                        // loop: 1,
                         showRelatedVideos: false,
+                        showinfo: 0,
+                        suggestedVideos: false
                       },
                     }}
                     videoId="WNZzwM2KIEQ"
                   ></YouTube>
-                )}
+                  )} */}
+                  <YouTubePlayer videoId="WNZzwM2KIEQ"></YouTubePlayer>
               </section>
             </div>
             {/* PRODUCT DISCRIPTION END */}
