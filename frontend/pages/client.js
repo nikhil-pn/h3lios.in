@@ -39,7 +39,7 @@ const contact = () => {
             autoPlay={true}
             infiniteLoop={true}
             showThumbs={false}
-            showIndicators={false}
+            // showIndicators={false}
           >
             {/* SLIDE START */}
             {data.map((item) => (

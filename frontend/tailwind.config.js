@@ -11,7 +11,11 @@ module.exports = {
       oswald: "Oswald, sans-serif",
       urbanist: "Urbanist, sans-serif",
     },
-    extend: {},
+    extend: {
+      colors: {
+        'my-grey': '#dee2e6',
+      },
+    },
   },
   plugins: [],
 };

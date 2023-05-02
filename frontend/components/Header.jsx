@@ -120,7 +120,6 @@ const Header = () => {
             <Link href="/wishlist">
               <section className="w-8 hidden  md:flex md:w-12 h-8 md:h-12 rounded-full  justify-center items-center hover:bg-black/[0.05] cursor-pointer relative transition-transform active:scale-90">
                 <IoMdHeartEmpty className="text-[19px] md:text-[24px]" />
-                
               </section>
             </Link>
             {/* Icon End */}
@@ -165,6 +164,7 @@ const Header = () => {
                 {authUser?.photo ? (
                   <div className="w-[70%]">
                     <img
+                      referrerpolicy="no-referrer"
                       className="rounded-full"
                       alt="photo"
                       src={authUser?.photo}

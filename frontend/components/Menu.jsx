@@ -11,7 +11,7 @@ import { BsChevronDown } from "react-icons/bs";
 const data = [
   // { id: 1, name: "Home", url: "/" },
   { id: 1, name: "Categories", subMenu: true },
-  { id: 2, name: "Fiverr", url: "/fiverr" },
+  { id: 2, name: "About", url: "/about" },
   { id: 3, name: "Clients", url: "/client" },
   { id: 4, name: "Contact", url: "/contact" },
   // { id: 5, name: "Buy on Fiverr", url: "/contact" },

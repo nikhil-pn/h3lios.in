@@ -31,7 +31,19 @@ const Form = () => {
   };
 
   const formSuccess = () => {
-    toast("Thanks for submitting your Query, I will get back to you shortly.");
+    toast.success(
+      "Thanks for submitting your Query, I will get back to you shortly.",
+      {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      }
+    );
 
     // Resetting Form
     document.getElementById("queryForm").reset();
