@@ -125,7 +125,7 @@ const Form = () => {
         {/* MESSAGE - FORM FIELD START */}
         <div className="flex flex-col gap-2">
           <label htmlFor="message" className="text-[16px] text-black uppercase">
-            Please tell a bit about yourself & your project
+            Let us know about your enquiry or custom order!
             <sup>*</sup>
           </label>
           <textarea
