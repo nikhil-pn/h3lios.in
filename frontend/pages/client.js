@@ -26,8 +26,13 @@ const contact = () => {
             Client Says
           </div>
           <div className="text-[16px] 2xl:text-[20px] leading-[24px] 2xl:leading-[32px] text-black text-center">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry.
+            Our clients from all around the world speak for us! Take a look at
+            what they have to say about our work and services. We pride
+            ourselves on delivering exceptional results that exceed
+            expectations, and our satisfied international clients are a
+            testament to our commitment to excellence. See for yourself why
+            clients from all over the globe keep coming back - read their
+            reviews today!
           </div>
         </Div>
         {/* SECTION HEADING END */}
