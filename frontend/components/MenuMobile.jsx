@@ -3,11 +3,13 @@ import React from "react";
 import { BsChevronDown } from "react-icons/bs";
 
 const data = [
-  { id: 1, name: "Home", url: "/" },
-  { id: 2, name: "About", url: "/about" },
-  { id: 3, name: "Categories", subMenu: true },
-  { id: 4, name: "Contact", url: "/contact" },
-  { id: 5, name: "Account", url: "/account" },
+  // { id: 1, name: "Home", url: "/" },
+  { id: 2, name: "Categories", subMenu: true },
+  { id: 3, name: "About", url: "/about" },
+  { id: 4, name: "Client", url: "/client" },
+  { id: 5, name: "Contact", url: "/contact" },
+  { id: 6, name: "Wishlist", url: "/wishlist" },
+  { id: 7, name: "Cart", url: "/cart" },
 ];
 
 const subMenuData = [
@@ -24,14 +26,17 @@ const MenuMobile = ({
   categories,
   authUser,
   signOut,
-  setLogOut
+  setLogOut,
 }) => {
   return (
     <>
       <div className="">
         <ul className="flex flex-col md:hidden font-bold absolute top-[50px] left-0 w-full h-[calc(100vh-50px)] bg-white border-t text-black">
           {authUser && (
-            <section key="3i" className="grid h-20 justify-center place-content-center mt-10">
+            <section
+              key="3i"
+              className="grid h-20 justify-center place-content-center mt-10"
+            >
               <h1 className=" text-2xl/3 opacity-90 ">
                 Welcome back {authUser?.username}
               </h1>
@@ -44,7 +49,6 @@ const MenuMobile = ({
                 <React.Fragment key={item.id}>
                   {!!item?.subMenu ? (
                     <li
-                    
                       className="cursor-pointer py-4 px-5 border-b flex flex-col relative"
                       onClick={() => setShowCatMenu(!showCatMenu)}
                     >
@@ -65,8 +69,7 @@ const MenuMobile = ({
                                   setMobileMenu(false);
                                 }}
                               >
-                                <li className="py-4 px-8 border-t flex justify-between"
-                                >
+                                <li className="py-4 px-8 border-t flex justify-between">
                                   {c.name}
                                   <span className="opacity-50 text-sm">
                                     {" "}
@@ -81,8 +84,6 @@ const MenuMobile = ({
                     </li>
                   ) : (
                     <li className="py-4 px-5 border-b">
-
-                    
                       <Link
                         href={item?.url}
                         onClick={() => setMobileMenu(false)}
@@ -96,8 +97,6 @@ const MenuMobile = ({
             );
           })}
           <section className="flex mx-auto my-auto gap-4 font-bold">
-            {/* <button className="bg-green-400 px-4 py-2 rounded-md">Log In</button> */}
-
             {!authUser && (
               <>
                 <Link href="/login">
@@ -126,7 +125,7 @@ const MenuMobile = ({
                 className="bg-black font-normal text-white w-[150px] py-4 mt-10 rounded-sm transition-transform hover:bg-black/[0.8] active:scale-90"
                 onClick={() => {
                   setMobileMenu(false);
-                  setLogOut(true)
+                  setLogOut(true);
                   signOut();
                 }}
               >

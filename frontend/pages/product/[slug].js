@@ -233,7 +233,7 @@ const ProductDetails = ({ product, products }) => {
               </div>
             </div>
             <div>
-              <div className="text-lg font-bold mb-5">Product Video</div>
+              <div className="text-lg font-bold mb-5">Demonstration Video</div>
 
               <section className="">
                 <YouTubePlayer videoId="WNZzwM2KIEQ"></YouTubePlayer>

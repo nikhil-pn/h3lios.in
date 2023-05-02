@@ -1,6 +1,7 @@
 import React from "react";
 import { FaTwitter, FaYoutube, FaInstagram } from "react-icons/fa";
 import Wrapper from "./Wrapper";
+import Link from "next/link";
 
 const Footer = () => {
   return (
@@ -8,7 +9,7 @@ const Footer = () => {
       <Wrapper className="flex justify-between flex-col md:flex-row gap-[50px] md:gap-0">
         {/* LEFT START */}
         <div className="flex gap-[50px] md:gap-[75px] lg:gap-[100px] flex-col md:flex-row">
-          {/* MENU START */}
+          {/*           
           <div className="flex flex-col gap-3 shrink-0">
             <div className="font-oswald font-medium uppercase text-sm cursor-pointer">
               Find a store
@@ -25,27 +26,26 @@ const Footer = () => {
             <div className="font-oswald font-medium uppercase text-sm cursor-pointer">
               student discount
             </div>
-          </div>
-          {/* MENU END */}
+          </div> */}
 
           {/* NORMAL MENU START */}
           <div className="flex gap-[50px] md:gap-[75px] lg:gap-[100px] shrink-0">
             {/* MENU START */}
             <div className="flex flex-col gap-3">
               <div className="font-oswald font-medium uppercase text-sm">
-                get help
+                ABOUT H3LIOS.IN
               </div>
               <div className="text-sm text-white/[0.5] hover:text-white cursor-pointer">
-                Order Status
+                clients
               </div>
               <div className="text-sm text-white/[0.5] hover:text-white cursor-pointer">
-                Delivery
+                About
               </div>
               <div className="text-sm text-white/[0.5] hover:text-white cursor-pointer">
-                Returns
+                Wishlist
               </div>
               <div className="text-sm text-white/[0.5] hover:text-white cursor-pointer">
-                Payment Options
+                Cart
               </div>
               <div className="text-sm text-white/[0.5] hover:text-white cursor-pointer">
                 Contact Us
@@ -55,9 +55,11 @@ const Footer = () => {
 
             {/* MENU START */}
             <div className="flex flex-col gap-3">
-              <div className="font-oswald font-medium uppercase text-sm">
-                About H3lios.in
-              </div>
+              <Link href="/about">
+                <div className="font-oswald font-medium uppercase text-sm">
+                  Explore Categories
+                </div>
+              </Link>
               <div className="text-sm text-white/[0.5] hover:text-white cursor-pointer">
                 News
               </div>
@@ -88,11 +90,21 @@ const Footer = () => {
             <FaInstagram size={20} />
           </div>
 
-          <div className="w-10 h-10 rounded-full bg-white/[0.25] flex items-center justify-center text-black hover:bg-white/[0.5] cursor-pointer">
+          <div
+            className="w-10 h-10 rounded-full bg-white/[0.25] flex items-center justify-center text-black hover:bg-white/[0.5] cursor-pointer"
+            onClick={() => {
+              window.open("https://youtube.com/ntecphones", "_blank");
+            }}
+          >
             <FaYoutube size={20} />
           </div>
 
-          <div className="w-10 h-10 rounded-full bg-white/[0.25] flex items-center justify-center text-black hover:bg-white/[0.5] cursor-pointer">
+          <div
+            className="w-10 h-10 rounded-full bg-white/[0.25] flex items-center justify-center text-black hover:bg-white/[0.5] cursor-pointer"
+            onClick={() => {
+              window.open("https://twitter.com/NikhilEth", "_blank");
+            }}
+          >
             <FaTwitter size={20} />
           </div>
         </div>
