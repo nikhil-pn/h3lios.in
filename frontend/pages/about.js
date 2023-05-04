@@ -2,9 +2,10 @@ import Div from "@/components/Div";
 import Wrapper from "@/components/Wrapper";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 
 const about = () => {
+ 
   return (
     <div
       id="contact"
@@ -88,7 +89,7 @@ const about = () => {
         <section className="flex justify-center items-center w-full">
           <div className=" bg w-full">
             <div className=" md:w-[500px] w-full bg-black mx-auto hover:scale-105 duration-200">
-              <motion.video className="" loop autoPlay muted playsInline>
+              <motion.video loop autoPlay muted playsInline>
                 <source src="/assets/ntecend.mp4" type="video/mp4" />
               </motion.video>
             </div>

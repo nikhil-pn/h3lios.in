@@ -13,12 +13,11 @@ function Home({ products }) {
           <div className="text-[28px] md:text-[34px] mb-5 font-semibold leading-tight ">
             {/* <h1>{products?.data?.[0]?.attributes?.name}</h1> */}
             {/* Need to populate heading like this  */}
-            Cushioning for Your Miles
+            "Unleash Your Creativity and Build Your Online Presence with Ease"
           </div>
           <div className="text-md md:text-xl">
-            A lightweight Nike ZoomX midsole is combined with increased stack
-            heights to help provide cushioning during extended stretches of
-            running.
+            Discover Confidence in Your Shopping: Explore Our Hand-Picked
+            Selection of Best-Selling Products Listed Below.
           </div>
         </div>
         {/* heading and paragaph end */}

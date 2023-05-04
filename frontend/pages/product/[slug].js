@@ -29,6 +29,8 @@ const ProductDetails = ({ product, products }) => {
 
   const p = product?.data?.[0]?.attributes;
 
+  
+
   //adding item to fireStore
   const addItemsToFireStore = async () => {
     try {
@@ -115,7 +117,7 @@ const ProductDetails = ({ product, products }) => {
             <div className="text-md font-medium text-black/[0.5]">
               incl. of taxes
             </div>
-            <div className="text-md font-medium text-black/[0.5] mb-20">
+            <div className="text-md font-medium text-black/[0.5] mb-10">
               {`(Also includes all applicable duties)`}
             </div>
 
@@ -123,7 +125,7 @@ const ProductDetails = ({ product, products }) => {
             <div className="mb-10">
               {/* HEADING START */}
               <div className="flex justify-between mb-2">
-                <div className="text-md font-semibold">Select Size</div>
+                <div className="text-md font-semibold">Select Version</div>
                 <div className="text-md font-medium text-black/[0.5] cursor-pointer">
                   Select Guide
                 </div>
@@ -236,7 +238,7 @@ const ProductDetails = ({ product, products }) => {
               <div className="text-lg font-bold mb-5">Demonstration Video</div>
 
               <section className="">
-                <YouTubePlayer videoId="WNZzwM2KIEQ"></YouTubePlayer>
+                <YouTubePlayer videoId={p.youtubeId}></YouTubePlayer>
               </section>
             </div>
             {/* PRODUCT DISCRIPTION END */}

@@ -7,24 +7,29 @@ export const fetchDataFromApi = async (endpoint) => {
       Authorization: "Bearer " + STRAPI_API_TOKEN,
     },
   };
-  const response = await fetch(`${API_URL}${endpoint}`, options);
-  const data = await response.json();
 
-  return data;
+  try {
+    const response = await fetch(`${API_URL}${endpoint}`, options);
+    const data = await response.json();
+    return data;
+    
+  } catch (error) {
+    console.error(error, "Failed to fetch data");
+  }
 };
 
 export const makePaymentRequest = async (endpoint, payload) => {
   console.log(JSON.stringify(payload), "payload");
   const res = await fetch(`${API_URL}${endpoint}`, {
-      method: "POST",
-      headers: {
-          Authorization: "Bearer " + STRAPI_API_TOKEN,
-          "Content-Type": "application/json",
-      },
+    method: "POST",
+    headers: {
+      Authorization: "Bearer " + STRAPI_API_TOKEN,
+      "Content-Type": "application/json",
+    },
 
-      body: JSON.stringify(payload),
-    });
-   
+    body: JSON.stringify(payload),
+  });
+
   const data = await res.json();
   return data;
 };
