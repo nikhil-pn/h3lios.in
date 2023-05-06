@@ -41,7 +41,8 @@ function Search({ setShowSearch }) {
           type="text"
           autoFocus
           placeholder="Search for Products"
-          onChange={onHandleChange}
+          onKeyDown={onHandleChange}
+          // onChange={onHandleChange}
         />
         <MdClose
           id="close-btn"
@@ -66,6 +67,7 @@ function Search({ setShowSearch }) {
                 }}
               >
                 <div id="img-container">
+                  
                   <img
                     id="img-product"
                     src={item.attributes.image.data[0].attributes.url}

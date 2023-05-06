@@ -12,7 +12,7 @@ export default function App({ Component, pageProps }) {
     <>
       <Head>
         <title>
-          H3lios.in | Ecommerce for FullStack Web Apps | Trusted by 100+ Fiverr
+          H3lios.in | Ecommerce for FullStack Web Apps |
           Clients
         </title>
         <meta

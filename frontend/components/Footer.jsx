@@ -33,45 +33,63 @@ const Footer = () => {
             {/* MENU START */}
             <div className="flex flex-col gap-3">
               <div className="font-oswald font-medium uppercase text-sm">
-                ABOUT H3LIOS.IN
+                H3LIOS.IN
               </div>
-              <div className="text-sm text-white/[0.5] hover:text-white cursor-pointer">
-                clients
-              </div>
-              <div className="text-sm text-white/[0.5] hover:text-white cursor-pointer">
-                About
-              </div>
-              <div className="text-sm text-white/[0.5] hover:text-white cursor-pointer">
-                Wishlist
-              </div>
-              <div className="text-sm text-white/[0.5] hover:text-white cursor-pointer">
-                Cart
-              </div>
-              <div className="text-sm text-white/[0.5] hover:text-white cursor-pointer">
-                Contact Us
-              </div>
+              <Link href="/about">
+                <div className="text-sm text-white/[0.5] hover:text-white cursor-pointer">
+                  About
+                </div>
+              </Link>
+              <Link href="/client">
+                <div className="text-sm text-white/[0.5] hover:text-white cursor-pointer">
+                  Client
+                </div>
+              </Link>
+
+              <Link href="/wishlist">
+                <div className="text-sm text-white/[0.5] hover:text-white cursor-pointer">
+                  Wishlist
+                </div>
+              </Link>
+
+              <Link href="/cart">
+                <div className="text-sm text-white/[0.5] hover:text-white cursor-pointer">
+                  Cart
+                </div>
+              </Link>
+              <Link href="/contact">
+                <div className="text-sm text-white/[0.5] hover:text-white cursor-pointer">
+                  Contact Us
+                </div>
+              </Link>
             </div>
             {/* MENU END */}
 
             {/* MENU START */}
             <div className="flex flex-col gap-3">
-              <Link href="/about">
-                <div className="font-oswald font-medium uppercase text-sm">
-                  Explore Categories
+              <div className="font-oswald font-medium uppercase text-sm">
+                Explore Categories
+              </div>
+              <Link href="/category/ai-services">
+                <div className="text-sm text-white/[0.5] hover:text-white cursor-pointer">
+                  Ai Services
                 </div>
               </Link>
-              <div className="text-sm text-white/[0.5] hover:text-white cursor-pointer">
-                News
-              </div>
-              <div className="text-sm text-white/[0.5] hover:text-white cursor-pointer">
-                Careers
-              </div>
-              <div className="text-sm text-white/[0.5] hover:text-white cursor-pointer">
-                Investors
-              </div>
-              <div className="text-sm text-white/[0.5] hover:text-white cursor-pointer">
-                Sustainability
-              </div>
+              <Link href="/category/programming-and-tech">
+                <div className="text-sm text-white/[0.5] hover:text-white cursor-pointer">
+                  Programming & Tech
+                </div>
+              </Link>
+              <Link href="/category/youtube-essentials">
+                <div className="text-sm text-white/[0.5] hover:text-white cursor-pointer">
+                  Youtube Essentials
+                </div>
+              </Link>
+              <Link href="/category/graphics-and-design">
+                <div className="text-sm text-white/[0.5] hover:text-white cursor-pointer">
+                  Graphics & Design
+                </div>
+              </Link>
             </div>
             {/* MENU END */}
           </div>

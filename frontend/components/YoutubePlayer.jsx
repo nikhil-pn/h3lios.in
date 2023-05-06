@@ -141,7 +141,7 @@ const YouTubePlayer = ({ videoId }) => {
         suggestedQuality: "hd720",
         loop: 1,
         playlist: videoId,
-        mute: 0,
+        mute: 1,
         start: 0,
         end: null,
         origin: window.location.origin,

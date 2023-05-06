@@ -53,15 +53,15 @@
       "type": "uid",
       "targetField": "name"
     },
+    "youtubeId": {
+      "type": "string",
+      "required": true
+    },
     "categories": {
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::category.category",
       "inversedBy": "products"
-    },
-    "youtubeId": {
-      "type": "string",
-      "required": true
     }
   }
 }
