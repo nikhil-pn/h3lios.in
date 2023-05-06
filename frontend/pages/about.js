@@ -2,10 +2,9 @@ import Div from "@/components/Div";
 import Wrapper from "@/components/Wrapper";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import React, { useState } from "react";
+import React from "react";
 
 const about = () => {
- 
   return (
     <div
       id="contact"

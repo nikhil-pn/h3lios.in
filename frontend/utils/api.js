@@ -12,7 +12,6 @@ export const fetchDataFromApi = async (endpoint) => {
     const response = await fetch(`${API_URL}${endpoint}`, options);
     const data = await response.json();
     return data;
-    
   } catch (error) {
     console.error(error, "Failed to fetch data");
   }
